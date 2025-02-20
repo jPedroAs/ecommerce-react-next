@@ -1,4 +1,4 @@
-##Projeto Next.js com React e TypeScript
+## Projeto Next.js com React e TypeScript
 
 Este projeto foi desenvolvido utilizando Next.js, React e TypeScript, proporcionando uma estrutura escalável e otimizada para aplicações modernas.
 
@@ -16,7 +16,7 @@ Tecnologias Utilizadas
 
 
 
-#URL: https://unistores.vercel.app/
+# URL: https://unistores.vercel.app/
 
 
 
