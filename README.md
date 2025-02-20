@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+##Projeto Next.js com React e TypeScript
 
-## Getting Started
+Este projeto foi desenvolvido utilizando Next.js, React e TypeScript, proporcionando uma estrutura escalável e otimizada para aplicações modernas.
 
-First, run the development server:
+Tecnologias Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-Next.js - Framework para React com renderização no servidor (SSR) e geração estática (SSG)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-React - Biblioteca para construção de interfaces de usuário
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-TypeScript - Superset do JavaScript que adiciona tipagem estática
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-CSS / Styled Components / TailwindCSS - Para estilização dinâmica e modular (caso aplicável)
 
-## Learn More
+-Axios / Fetch API - Para consumo de APIs externas
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#URL: https://unistores.vercel.app/
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estrutura de pastas
+
+`assets`: Serve para armazenar imagens (imagens leves, se forem pesadas sempre prefira hospedar em uma CDN), ícones, etc.
+
+`components`: Componentes reutilizáveis da aplicação. Componentes que são unidades para sua aplicação, um button, um dropdown, um modal, etc.
+
+`hooks`: Essa pasta é utilizada para armazenar hooks que são genéricos, têm interação com hooks do React (useState, useEffect) e normalmente reutilizáveis e qualquer projeto, exemplos: useScreenSize, useLocalStorage, useSessionStorage, useUserActive.
+
+`pages`: As pages são as páginas que usam vários componentes. É essa a página que o usuário vai ver.
+
+`services`: Aqui ficam as configurações de HTTP clientes, normalmente utilizando axios.
+
+`store`: Ficam as definições de state managers, context api, zustand, redux.
+
+`types`: Armazena as tipagens de typescript (types e interfaces) que são comuns em várias áreas do projeto.
+
+`utils`: Funções utilitárias como formatCurrency, formatPhone, convertTimezone, parsePhone (javascript puro).
+
+
