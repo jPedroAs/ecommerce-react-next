@@ -5,11 +5,9 @@ import { GiPadlock } from "react-icons/gi";
 import { MdAlternateEmail } from "react-icons/md";
 import api from "../../services/api"
 import { useState, useRef } from "react";
-// import ModalConfirm from '../../components/ModalCadastro/ModalConfirm';
 import Swal from 'sweetalert2';
-import Link from 'next/link';
 import { useRouter } from "next/navigation";
-// import { useNavigate } from "react-router-dom";
+
 
 function Login() {
   const router = useRouter();
