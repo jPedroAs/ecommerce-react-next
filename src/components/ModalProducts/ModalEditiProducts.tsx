@@ -1,8 +1,10 @@
+"use client";
 import React, { useRef } from "react";
 import "./index.css"
 import { Product } from "../../interface/ProdutoInterface"
 import api from "../../services/api"
 import Swal from 'sweetalert2';
+
 
 interface modal {
     isOpen?: boolean,
@@ -10,13 +12,13 @@ interface modal {
     data: Product[]
 }
 export default function ModalProducts({ isOpen, onClosed, data }: modal) {
-    if (!isOpen) return null
-
     const NomeRef = useRef<HTMLInputElement>(null);
     const ValorRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
     const descRef = useRef<HTMLInputElement>(null);
     const quatRef = useRef<HTMLInputElement>(null);
+
+    if (!isOpen) return null
 
 
     async function PutProduto(id: string,) {

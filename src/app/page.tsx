@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
 const Pages = () =>{
-  redirect('/Home'); 
+  redirect('/Login'); 
 }
 export default Pages;

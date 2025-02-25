@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { FaRegUser } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { CiShoppingCart } from "react-icons/ci";
 
 export default function NavBar() {
     return (
@@ -17,9 +20,9 @@ export default function NavBar() {
                     <a href="#" className="text-white hover:text-blue-200">Blogs</a>
                 </div>
                 <div className="container flex justify-center space-x-3">
-                    <a href="#" className="text-white hover:text-blue-200">Pesquisa</a>
-                    <a href="#" className="text-white hover:text-blue-200">Carrinho</a>
-                    <a href="#" className="text-white hover:text-blue-200">User</a>
+                    <a href="#" className="text-white hover:text-blue-200"><FaSearch /></a>
+                    <a href="#" className="text-white hover:text-blue-200"><CiShoppingCart /></a>
+                    <a href="#" className="text-white hover:text-blue-200"><FaRegUser /></a>
                 </div>
             </div>
         </nav>

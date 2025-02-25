@@ -10,6 +10,7 @@ import { MdDelete } from "react-icons/md";
 import { Product } from "../../interface/ProdutoInterface"
 
 
+
 function Produtos() {
     const NomeRef = useRef<HTMLInputElement>(null);
     const ValorRef = useRef<HTMLInputElement>(null);
