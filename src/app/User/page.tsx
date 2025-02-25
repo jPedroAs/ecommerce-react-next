@@ -107,6 +107,7 @@ function User() {
         const response = await api.delete(`/Account/${tokenId()}`);
         console.log(response)
         if(response.status == 200){
+            localStorage.removeItem("token");
             router.push("/Login");
         }
     } catch (error) {
