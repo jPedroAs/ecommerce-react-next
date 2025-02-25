@@ -39,7 +39,7 @@ function Home() {
                 alt={product?.nome || "Produto sem nome"}
                 className="h-12 w-12 object-cover" />
               <h3 className="text-lg font-semibold mt-4">{product.nome}</h3>
-              <p className="text-blue-600 font-bold">`R$ {product.preco}`</p>
+              <p className="text-blue-600 font-bold">R$ {product.preco}</p>
               <button className="mt-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
                 Comprar
               </button>
