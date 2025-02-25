@@ -15,7 +15,7 @@ export default function NavBar() {
                     <a href="/Home" className="text-white hover:text-blue-200">Home</a>
                     <a href="#" className="text-white hover:text-blue-200">Features</a>
                     {/* <a href="/Produtos" className="text-white hover:text-blue-200">Products</a> */}
-                    <Link href="/Produtos">Products</Link>
+                    <Link href="/Produtos" className="text-white hover:text-blue-200">Products</Link>
                     <a href="#" className="text-white hover:text-blue-200">Categories</a>
                     <a href="#" className="text-white hover:text-blue-200">Review</a>
                     <a href="#" className="text-white hover:text-blue-200">Blogs</a>
@@ -23,7 +23,7 @@ export default function NavBar() {
                 <div className="container flex justify-center space-x-3">
                     <a href="#" className="text-white hover:text-blue-200"><FaSearch /></a>
                     <a href="#" className="text-white hover:text-blue-200"><CiShoppingCart /></a>
-                    <a href="#" className="text-white hover:text-blue-200"><FaRegUser /></a>
+                    <Link href="/User" className="text-white hover:text-blue-200"><FaRegUser /></Link>
                 </div>
             </div>
         </nav>
