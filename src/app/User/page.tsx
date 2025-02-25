@@ -9,10 +9,13 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Users } from "../../interface/UserInterface"
 import { jwtDecode } from 'jwt-decode';
+import { useRouter } from "next/navigation";
 
 
 
 function User() {
+    const router = useRouter();
+    
     const NomeRef = useRef<HTMLInputElement>(null);
     const EmailRef = useRef<HTMLInputElement>(null);
     const SenhaRef = useRef<HTMLInputElement>(null);
@@ -103,11 +106,9 @@ function User() {
     try {
         const response = await api.delete(`/Account/${tokenId()}`);
         console.log(response)
-        //setUser(user.filter(user => user.id !== tokenId()));
-        Swal.fire({
-            text: "Produto deletado com sucesso.",
-            icon: "success",
-        });
+        if(response.status == 200){
+            router.push("/Login");
+        }
     } catch (error) {
         Swal.fire({
             text: "Erro ao deletar o produto.",
