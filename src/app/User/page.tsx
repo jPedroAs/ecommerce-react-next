@@ -62,7 +62,7 @@ function User() {
         try {
             const body = {     
                 name: NomeRef.current?.value,   
-                email:EmailRef .current?.value,    
+                email:EmailRef.current?.value,    
                 senha: user[0].senha,   
                 ra: RARef.current?.value,       
                 telefone: TelefoneRef.current?.value, 
