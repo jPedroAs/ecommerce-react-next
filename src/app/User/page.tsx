@@ -101,7 +101,6 @@ function User() {
 
     async function handleDelete() {
     try {
-        console.log(productId) 
         const id = tokenID()
         const response = await api.delete(`/Account/${id}`);
         console.log(response)
@@ -216,7 +215,6 @@ function User() {
                         >
                             Atualizar
                         </button>
-
                         <button 
                             onClick={handleDelete} 
                             className="bg-red-600 text-white p-4 rounded-lg w-full text-lg hover:bg-blue-700"
