@@ -103,7 +103,7 @@ function User() {
     try {
         const response = await api.delete(`/Account/${tokenID()}`);
         console.log(response)
-        setUser(user.filter(user => user.id !== tokenID()));
+        //setUser(user.filter(user => user.id !== tokenID()));
         Swal.fire({
             text: "Produto deletado com sucesso.",
             icon: "success",
