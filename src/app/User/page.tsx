@@ -99,6 +99,25 @@ function User() {
     //     }
     // }
 
+    async function handleDelete() {
+    try {
+        console.log(productId) 
+        const id = tokenID()
+        const response = await api.delete(`/Account/${id}`);
+        console.log(response)
+        setUser(user.filter(user => user.id !== id));
+        Swal.fire({
+            text: "Produto deletado com sucesso.",
+            icon: "success",
+        });
+    } catch (error) {
+        Swal.fire({
+            text: "Erro ao deletar o produto.",
+            icon: "error",
+        });
+    }
+}
+
 
     return (
         <div className="block bg-white min-h-screen">
@@ -196,6 +215,13 @@ function User() {
                             className="bg-blue-600 text-white p-4 rounded-lg w-full text-lg hover:bg-blue-700"
                         >
                             Atualizar
+                        </button>
+
+                        <button 
+                            onClick={handleDelete} 
+                            className="bg-red-600 text-white p-4 rounded-lg w-full text-lg hover:bg-blue-700"
+                        >
+                            Delete
                         </button>
                     </form>
                 ))}
