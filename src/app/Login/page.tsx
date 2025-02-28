@@ -34,7 +34,8 @@ function Login() {
         const data = response.data
         console.log(data)
         localStorage.setItem("token", data.token);
-        router.push("/Home");
+        // router.push("/Home");
+        window.location.href = "/Home";
       }
       else if (response.status == 204) {
         Swal.fire({

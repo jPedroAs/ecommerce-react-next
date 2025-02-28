@@ -1,5 +1,5 @@
 "use client"
-import '../Home/index.css'
+import '../Home/index.css';
 import Navbar from "../../components/NavBar";
 import { useEffect, useState } from "react";
 import api from "../../services/api"

@@ -125,7 +125,7 @@ function User() {
             <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
                     <h2 className="text-2xl font-bold text-center text-gray-700">Tela do Usuário</h2>
                     {user.map((user) => (
-                    <form key={user.id} className="bg-white p-10 rounded-lg shadow-lg w-full max-w-lg flex flex-col gap-4">
+                    <form onSubmit={PutUser} key={user.id} className="bg-white p-10 rounded-lg shadow-lg w-full max-w-lg flex flex-col gap-4">
                         <input
                             type="text"
                             placeholder="Nome"
