@@ -97,12 +97,11 @@ export default function PaymentRegistration() {
 
                     {paymentMethod === "Pix" ? (
                         <div>
-                            <label className="block text-gray-600">Chave Pix</label>
-                            <input
-                                type="text"
-                                placeholder="Digite a chave Pix"
-                                className="w-full p-3 mt-2 border rounded-lg bg-white text-black"
-                            />
+                            <button
+                                className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition duration-200"
+                            >
+                                Gerar QRCode
+                            </button>
                         </div>
                     ) : null}
 
