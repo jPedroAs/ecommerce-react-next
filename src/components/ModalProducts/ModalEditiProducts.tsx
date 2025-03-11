@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import "./index.css"
+import "../index.css"
 import { Product } from "../../interface/ProdutoInterface"
 import api from "../../services/api"
 import Swal from 'sweetalert2';
