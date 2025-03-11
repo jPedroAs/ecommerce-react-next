@@ -1,0 +1,19 @@
+:root{
+    /*Collor for text global*/
+    --color-text-global-gray: rgba(112, 112, 111, 1);
+    --color-text-global-gray-opacty: rgba(112, 112, 111, 0.46);
+    --color-text-global-white: rgba(255, 255, 255, 1);
+    /*Collor for topbar*/
+    --color-primary-container-topbar: rgba(102, 0, 146, 0.5);
+    --color-sercundary-container-hover-topbar: rgba(45,15,45,0.4);
+    --color-primary-text-topbar: #fff;
+    /*Collor for sidebar*/
+    --color-primary-container-sidebar: rgba(242, 0, 145, 0.4);
+    --color-primary-circle-sidebar: rgba(232, 24, 118, 1);
+    --color-primary-circle-hover-sidebar: rgba(242,0,145,0.4);
+    /*Collor for home*/
+    --color-primary-pink: rgba(242, 0, 145, 1);
+    --color-primary-purple: rgba(102, 0, 146, 1);
+    --color-sercundary-orange: rgba(253, 118, 36, 1);
+    /*Collor for framework*/
+}
