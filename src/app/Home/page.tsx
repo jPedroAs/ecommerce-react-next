@@ -1,9 +1,9 @@
 "use client"
 import '../Home/index.css';
-import Navbar from "../../components/NavBar";
 import { useEffect, useState } from "react";
 import api from "../../services/api"
 import { Product } from "../../interface/ProdutoInterface"
+import MainBar from '@/components/MainBar/MainBar';
 
 function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,7 +24,7 @@ function Home() {
 
   return (
     <div className='block bg-white min-h-screen'>
-      <Navbar />
+      <MainBar />
       <div className="container mx-auto py-10 flex flex-col h-full">
         <h2 className="text-center text-2xl font-bold mb-6">Nossos Produtos</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

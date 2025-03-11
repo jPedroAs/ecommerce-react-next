@@ -1,5 +1,4 @@
-
-import Link from "next/link";
+import Link from "next/link"
 import { FaRegUser } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
