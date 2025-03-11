@@ -95,7 +95,7 @@ export default function Cart({ isOpen, onClosed }: modal) {
     };
 
 
-    const total = Array.isArray(pedido) ? pedido.reduce((sum, pedido) => sum + (pedido.produtos.preco + (pedido.pedidos.qnt_prod_unidade || 1)), 0).toFixed(2) : '0.00';
+    const total = Array.isArray(pedido) ? pedido.reduce((sum, pedido) => sum + (pedido.produtos.preco * (pedido.pedidos.qnt_prod_unidade || 1)), 0).toFixed(2) : '0.00';
 
     if (!isOpen && !isVisible) return null;
 
