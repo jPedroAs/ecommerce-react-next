@@ -4,7 +4,6 @@ import Link from "next/link"
 import search from "../../assets/Search.svg"
 import cart from "../../assets/Shopping cart.svg"
 import user from "../../assets/User.svg"
-import ModalCart from "../components/ModalCart/Cart";
 import { useState } from "react"; // Importe useState
 
 const MainBar = () => {
@@ -31,7 +30,7 @@ const MainBar = () => {
                     <Link href="/Home" className={styles.link}>Home</Link>
                     <Link href="/Produtos" className={styles.link}>Products</Link>
                     <Link href="/Categories" className={styles.link}>Categories</Link>
-                        Link href="/Review" className={styles.link}>Review</Link>
+                    <Link href="/Review" className={styles.link}>Review</Link>
                 </div>
     
                 <div className={styles.icons}>
