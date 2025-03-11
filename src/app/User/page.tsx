@@ -1,6 +1,5 @@
 "use client";
 import "../Produtos/index.css"
-import Navbar from "../../components/NavBar";
 import ModalProducts from "../../components/ModalProducts/ModalEditiProducts";
 import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
@@ -10,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 import { Users } from "../../interface/UserInterface"
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from "next/navigation";
+import MainBar from "@/components/MainBar/MainBar";
 
 
 
@@ -121,8 +121,8 @@ function User() {
 
     return (
         <div className="block bg-white min-h-screen">
-            <Navbar />
-            <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
+      <MainBar />
+      <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
                     <h2 className="text-2xl font-bold text-center text-gray-700">Tela do Usuário</h2>
                     {user.map((user) => (
                     <form onSubmit={PutUser} key={user.id} className="bg-white p-10 rounded-lg shadow-lg w-full max-w-lg flex flex-col gap-4">

@@ -1,6 +1,5 @@
 "use client";
 import "../Produtos/index.css"
-import Navbar from "../../components/NavBar";
 import ModalProducts from "../../components/ModalProducts/ModalEditiProducts";
 import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
@@ -8,6 +7,7 @@ import Swal from 'sweetalert2';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Product } from "../../interface/ProdutoInterface"
+import MainBar from "@/components/MainBar/MainBar";
 
 
 
@@ -120,8 +120,8 @@ async function handleEdit(productId: string) {
 
 return (
     <div className="block bg-white min-h-screen">
-        <Navbar />
-        <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
+      <MainBar />
+      <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
             <form className="bg-white p-10 rounded-lg shadow-lg w-full max-w-lg flex flex-col gap-4">
                 <h2 className="text-2xl font-bold text-center text-gray-700">Cadastro De Produto</h2>
                 <input
