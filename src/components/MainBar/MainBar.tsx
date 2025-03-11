@@ -27,6 +27,7 @@ const MainBar = () => {
     }
 
     return (
+        <div>
         <nav className={styles.nav} style={{ height: navHeight }}>
             <div className={styles.container}>
 
@@ -48,9 +49,10 @@ const MainBar = () => {
                     <Link href="/User" className={styles.choissesicons}><img src={user.src}/></Link>
                 </div>
             </div>
-            <ModalCart isOpen={modalOpen} onClosed={handlerModal} />
             {isVisible && <div className={styles.searchbar}><input type="text" placeholder="Pesquise Aqui"/></div>}
         </nav>
+            <ModalCart isOpen={modalOpen} onClosed={handlerModal} />
+        </div>
     );
 };
 
