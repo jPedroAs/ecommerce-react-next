@@ -33,6 +33,7 @@ function Login() {
       if (response.status == 200) {
         const data = response.data
         console.log(data)
+        localStorage.removeItem("token")
         localStorage.setItem("token", data.token);
         // router.push("/Home");
         window.location.href = "/Home";
