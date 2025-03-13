@@ -1,0 +1,142 @@
+.main{
+    width: 100vw;
+    height: 100vh;
+    background: #FFFFFF;
+    color: #FFFFFF;
+    z-index: 0;
+}
+.container{
+    position: relative;
+    top: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+.cadprod{
+    position: relative;
+    left: 100px;
+    width: 512px;
+    height: 586px;
+    border-radius: 24px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.cadprod h2{
+    width: 370px;
+    height: 48px;
+    text-align: center;
+    position: relative;
+    color: #123D72;
+    top: 20px;
+    font-size: 36px;
+    font-weight: bold;
+}
+.items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 440px;
+    height: 50px;
+    background: #D9D9D9;
+    border-radius: 12px;
+}
+.items img{
+    position: relative;
+    left: 10px;
+    width: 41px;
+    height: 41px;
+}
+.input{
+    height: 50px;
+    width: 359px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background: #D9D9D9;
+    color: #606060;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.containerform{
+    width: 440px;
+    height: 354px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.btncadprod{
+    width: 440px;
+    height: 50px;
+    background: #194B80;
+    border: none;
+    cursor: pointer;
+    border-radius: 100px;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    position: relative;
+    bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: all 1s ease-out;
+}
+.btncadprod:hover{
+    transition: all 1s ease-out;
+    background: #123D72;
+}
+.containermyproducts{
+    position: relative;
+    right: 100px;
+    width: 1130px;
+    height: 586px;
+    background: #FFFFFF;
+    border-radius: 24px;    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 3px solid #123D72;
+}
+.containermyproducts h2{
+    width: 100%;
+    height: 54px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #123D72;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom: 3px solid     #123D72;
+}
+.myproducts{
+    width: 100%;
+}
+.header{
+    width: 282.63px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #123D72;
+    background: #FFFFFF;
+}
+.itemslist{
+    width: 282.63px;
+    height: 33px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #606060;
+}
+.rowlist{
+    width: 100%;
+    height: 33px;
+    border: none;
+}
+.itemslistimg{
+    display: flex;
+    width: 282.63px;
+    height: 33px;
+    justify-content: center;
+}
+.table{
+    width: 100%;
+}

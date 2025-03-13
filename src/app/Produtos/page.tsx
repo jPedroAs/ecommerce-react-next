@@ -179,7 +179,7 @@ return (
                                             className="h-12 w-12 object-cover" />
                                     </td>
                                     <td className="p-2 border text-black">{product.nome}</td>
-                                    <td className="p-2 border text-black">R$ {product.preco}</td>
+                                    <td className="p-2 border text-black">R${product.preco}</td>
                                     <td className="flex justify-center space-x-2 mt-3">
                                         <button onClick={() => handleEdit(product.id)} className="bg-blue-500 text-white p-2 rounded-lg hover:bg-green-600 transition ">
                                             <FaEdit />

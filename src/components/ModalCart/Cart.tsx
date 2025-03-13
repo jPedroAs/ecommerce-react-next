@@ -102,8 +102,7 @@ export default function Cart({ isOpen, onClosed }: modal) {
     return (
         <div
             className={`fixed top-0 right-0 h-screen w-1/3 bg-white shadow-2xl p-6 rounded-lg overflow-y-auto
-                transition-transform duration-500 ease-in-out ${isVisible ? "translate-x-0" : "translate-x-full"}`}
-        >
+                transition-transform duration-500 ease-in-out ${isVisible ? "translate-x-0" : "translate-x-full"}`} style={{ zIndex: 1 }}>
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold text-gray-800">Carrinho de Compras</h2>
                 <button
