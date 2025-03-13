@@ -7,7 +7,6 @@ import { MdClose } from "react-icons/md";
 import { Pedido, Pedidos } from '@/interface/PedidoInterface';
 import { jwtDecode } from 'jwt-decode';
 import Link from "next/link";
-
 interface modal {
     isOpen?: boolean,
     onClosed?: () => void
@@ -27,6 +26,7 @@ export default function Cart({ isOpen, onClosed }: modal) {
     }, [isOpen]);
 
     useEffect(() => {
+        let interval: NodeJS.Timeout;
         async function fetchProducts() {
             const token = localStorage.getItem("token");
             if (!token) {
@@ -40,19 +40,24 @@ export default function Cart({ isOpen, onClosed }: modal) {
                 console.error("Erro ao decodificar token:", error);
                 return;
             }
-            try {
-                const responsePedido = await api.get(`/Pedido/${decodedToken.ID}`);
-                if (responsePedido.status == 200) {
-                    const data = await responsePedido.data.pedido;
-                    console.log(data)
+            const responsePedido = await api.get(`/Pedido/${decodedToken.ID}`).then((responsePedido) => {
+                if (Array.isArray(responsePedido.data.pedido)) {
+                    const data = responsePedido.data.pedido;
                     setPedido(data);
+                } else {
+                    setPedido([]);
                 }
-            } catch (error) {
-                console.error("Erro ao buscar produtos:", error);
-            }
+            }).catch(() => { 
+                setPedido([]);  
+            })
         }
-        fetchProducts();
-    }, []);
+        if (isOpen) {
+            fetchProducts();
+            interval = setInterval(fetchProducts, 2000);
+        }
+
+        return () => clearInterval(interval);
+    }, [isOpen]);
 
     async function handleDelete(productId: number) {
         try {
@@ -122,7 +127,7 @@ export default function Cart({ isOpen, onClosed }: modal) {
                             />
                             <div className="flex flex-col flex-grow">
                                 <span className="text-lg font-semibold text-gray-800">{product.produtos.nome}</span>
-                                <span className="text-gray-600">R$ {product.pedidos.vl_prod_unidade.toFixed(2)}</span>
+                                <span className="text-gray-600">R$ {product.produtos.preco.toFixed(2)}</span>
                             </div>
 
                             <div className="flex items-center gap-2">

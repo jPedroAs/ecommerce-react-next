@@ -51,9 +51,8 @@ function Home() {
       id_aluno: decodedToken.ID
     }
     console.log(data)
-    const response = await api.post("/Pedido", data);
-    console.log(response)
-    if(response.status == 200){
+    const response = await api.post("/Pedido", data)
+    .then(() => {
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -61,16 +60,18 @@ function Home() {
         showConfirmButton: false,
         timer: 1500
       });
-    }
-    else if(response.status == 400){
+    })
+    .catch(() => {
       Swal.fire({
         position: "top-end",
         icon: "info",
-        title: "Item adicionado no Carrinho",
+        title: "Item já foi adicionado no Carrinho",
         showConfirmButton: false,
         timer: 1500
       });
-    }
+    });
+    console.log(response)
+
   }
 
   return (

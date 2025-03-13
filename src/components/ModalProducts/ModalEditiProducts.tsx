@@ -20,8 +20,9 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
 
     if (!isOpen) return null
 
+    console.log(data);
 
-    async function PutProduto(id: string,) {
+    async function PutProduto(id: string) {
         try {
             const file = imageRef.current?.files?.[0];
             let base64Image = "";
@@ -45,13 +46,16 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
                 Aval: 0,
                 QAval: 0
             }
-
+            console.log(body);
             await api.put(`/Produto/${id}`, body);
             isOpen = false
             Swal.fire({
-                text: "Atualização concluído com sucesso.",
-                icon: "success",
-            });
+                    position: "top-end",
+                    icon: "success",
+                    title: "Atualizado com Sucesso",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
         } catch {
             Swal.fire({
                 text: "Ocorreu um Error.",
