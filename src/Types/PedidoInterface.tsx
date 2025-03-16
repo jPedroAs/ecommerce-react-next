@@ -23,3 +23,5 @@ export enum StatusPedido {
     Pedido_Fec = 1,
     Efetivado = 2
 }
+
+export { Product };

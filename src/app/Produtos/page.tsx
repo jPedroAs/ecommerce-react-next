@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import Swal from 'sweetalert2';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { Product } from "../../interface/ProdutoInterface"
+import { Product } from "../../Types/ProdutoInterface"
 import MainBar from "@/components/MainBar/MainBar";
 
 

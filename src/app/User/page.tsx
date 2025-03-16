@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import Swal from 'sweetalert2';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { Users } from "../../interface/UserInterface"
+import { Users } from "../../Types/UserInterface"
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from "next/navigation";
 import MainBar from "@/components/MainBar/MainBar";

@@ -1,10 +1,10 @@
-import { Product } from '@/interface/ProdutoInterface';
+import { Product } from '@/Types/ProdutoInterface';
 import '../index.css';
 import { useEffect, useState } from 'react';
 import api from "../../services/api";
 import Swal from 'sweetalert2';
 import { MdClose } from "react-icons/md";
-import { Pedido, Pedidos } from '@/interface/PedidoInterface';
+import { Pedido, Pedidos } from '@/Types/PedidoInterface';
 import { jwtDecode } from 'jwt-decode';
 import Link from "next/link";
 interface modal {

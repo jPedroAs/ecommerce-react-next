@@ -4,5 +4,6 @@ export interface Product {
     preco: number;
     img: string;
     descricao: string;
-    quantidade: number
+    quantidade: number;
+    onClose: () => void;
 }

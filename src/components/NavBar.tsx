@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
 import ModalCart from "../components/ModalCart/Cart";
 import { useEffect, useState, useRef } from "react";
-import { Product } from "@/interface/ProdutoInterface";
+import { Product } from "@/Types/ProdutoInterface";
 
 
 

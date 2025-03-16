@@ -1,7 +1,7 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "../index.css"
-import { Product } from "../../interface/ProdutoInterface"
+import { Product } from "../../Types/ProdutoInterface"
 import api from "../../services/api"
 import Swal from 'sweetalert2';
 
@@ -17,6 +17,8 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
     const imageRef = useRef<HTMLInputElement>(null);
     const descRef = useRef<HTMLInputElement>(null);
     const quatRef = useRef<HTMLInputElement>(null);
+    const [products, setProducts] = useState<Product[]>([]);
+    
 
     if (!isOpen) return null
 
@@ -64,6 +66,24 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
         }
     }
 
+    async function handleDelete(id: string) {
+        try {
+            console.log(id)
+            const response = await api.delete(`/Produto/${id}`);
+            console.log(response)
+            setProducts(products.filter(product => product.id !== id));
+            Swal.fire({
+                text: "Produto deletado com sucesso.",
+                icon: "success",
+            });
+        } catch (error) {
+            Swal.fire({
+                text: "Erro ao deletar o produto.",
+                icon: "error",
+            });
+        }
+    }
+
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             {/* <div className="max-w-2xl mx-auto flex flex-col items-center mt-6"> */}
@@ -105,15 +125,11 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
                             ref={descRef}
                         />
-                        <input
-                            type="number"
-                            placeholder="Quantidade"
-                            defaultValue={product.quantidade}
-                            className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            ref={quatRef}
-                        />
                         <button onClick={() => PutProduto(product.id)} className="bg-blue-600 text-white p-3 rounded-lg w-full text-lg hover:bg-blue-700">
                             Enviar
+                        </button>
+                        <button onClick={() => handleDelete(product.id)} className="bg-blue-600 text-white p-3 rounded-lg w-full text-lg hover:bg-blue-700">
+                            Deletar
                         </button>
                         <button onClick={onClosed} className="bg-blue-600 text-white p-3 rounded-lg w-full text-lg hover:bg-blue-700">
                             Cancelar

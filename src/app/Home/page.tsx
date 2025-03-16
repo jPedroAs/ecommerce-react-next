@@ -2,7 +2,7 @@
 import '../Home/index.css';
 import { useEffect, useState } from "react";
 import api from "../../services/api"
-import { Product } from "../../interface/ProdutoInterface"
+import { Product } from "../../Types/ProdutoInterface"
 import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import MainBar from '@/components/MainBar/MainBar';

@@ -7,14 +7,15 @@ import FileIcon from "../../Assets/FormCad/FileIcon.svg";
 import AboutIcom from "../../Assets/FormCad/AboutIcon.svg";
 import AmountIcom from "../../Assets/FormCad/AmountIcon.svg";
 import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { Product } from "../../interface/ProdutoInterface"
-import { useEffect, useState, useRef } from "react";
+import { GrConfigure } from "react-icons/gr";
+import { Product } from "../../Types/ProdutoInterface"
+import React, { useState, useRef, useEffect } from 'react';
 import api from "@/services/api";
 import Swal from "sweetalert2";
 import ModalProducts from "@/components/ModalProducts/ModalEditiProducts";
 import { IoIosInformationCircleOutline } from "react-icons/io";
-
+import InfoPopup from "../../components/InfoPopup/InfoPopup"
+import MovePopup from "../../components/MovePopup/MovePopup"
 
 const Products = () => {
 
@@ -27,6 +28,16 @@ const Products = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [exibirComponenteInfo, setExibirComponenteInfo] = useState(false);
+    const [exibirComponenteMove, setExibirComponenteMove] = useState(false);
+
+    const handleCloseMovePopup = () => {
+        setExibirComponenteMove(false);
+    };
+
+    const handleCloseInfoPopup = () => {
+        setExibirComponenteInfo(false);
+    };
 
     function handlerModal() {
         setModalOpen(!modalOpen)
@@ -96,26 +107,7 @@ const Products = () => {
     }
 
 
-    async function handleDelete(productId: string) {
-        try {
-            console.log(productId)
-            const response = await api.delete(`/Produto/${productId}`);
-            console.log(response)
-            setProducts(products.filter(product => product.id !== productId));
-            Swal.fire({
-                text: "Produto deletado com sucesso.",
-                icon: "success",
-            });
-        } catch (error) {
-            Swal.fire({
-                text: "Erro ao deletar o produto.",
-                icon: "error",
-            });
-        }
-    }
-
     async function handleEdit(productId: string) {
-
         const productToEdit = products.find((product) => product.id === productId);
         if (productToEdit) {
             setSelectedProduct(productToEdit);
@@ -123,12 +115,22 @@ const Products = () => {
         }
     }
 
-    async function handleGet(productId: string) {
+    async function handleMove(productId: string) {
 
         const productToEdit = products.find((product) => product.id === productId);
         if (productToEdit) {
             setSelectedProduct(productToEdit);
-            setModalOpen(true);
+            setExibirComponenteMove(true);
+        }
+    }
+
+    async function handleInfo(productId: string) {
+
+        const productGet = products.find((product) => product.id === productId);
+
+        if (productGet) {
+            setSelectedProduct(productGet);
+            setExibirComponenteInfo(true);
         }
     }
 
@@ -192,13 +194,13 @@ const Products = () => {
                                             <td className={styles.itemslist}>{product.nome}</td>
                                             <td className={styles.itemslist}>R${product.preco}</td>
                                             <td className="flex justify-center space-x-2 mt-3">
-                                                <button onClick={() => handleEdit(product.id)} className="bg-blue-500 text-white p-2 rounded-lg hover:bg-green-600 transition ">
+                                                <button onClick={() => handleMove(product.id)} className={styles.btnChoices}>
                                                     <FaEdit />
                                                 </button>
-                                                <button onClick={() => handleDelete(product.id)} className="bg-blue-500 text-white p-2 rounded-lg hover:bg-red-600 transition ml-2">
-                                                    <MdDelete />
+                                                <button onClick={() => handleEdit(product.id)} className={styles.btnChoices}>
+                                                    <GrConfigure />
                                                 </button>
-                                                <button onClick={() => handleGet(product.id)} className="bg-blue-500 text-white p-2 rounded-lg hover:bg-red-600 transition ml-2">
+                                                <button onClick={() => handleInfo(product.id)} className={styles.btnChoices}>
                                                     <IoIosInformationCircleOutline />
                                                 </button>
                                             </td>
@@ -214,6 +216,8 @@ const Products = () => {
                             </tbody>
                         </table>
                     </div>
+                    {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup}/>}
+                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseInfoPopup}/>}
 
                 </div>
             </div>

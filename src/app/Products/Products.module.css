@@ -140,3 +140,25 @@
 .table{
     width: 100%;
 }
+.btnChoices{
+    width: 34px;
+    height: 34px;
+    background: #123D72;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.8s ease;
+}
+.btnChoices:first-child:hover{
+    background: #00FF00;
+    transition: background-color 0.8s ease;
+}
+.btnChoices:last-child:hover{
+    background: #D3D3D3;
+    transition: background-color 0.8s ease;
+}
+.btnChoices:hover{
+    background: #0000FF;
+    transition: background-color 0.8s ease;
+}
