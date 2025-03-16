@@ -16,6 +16,7 @@ import ModalProducts from "@/components/ModalProducts/ModalEditiProducts";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import InfoPopup from "../../components/InfoPopup/InfoPopup"
 import MovePopup from "../../components/MovePopup/MovePopup"
+import EditPopup from "../../components/EditPopup/EditPopup"
 
 const Products = () => {
 
@@ -30,6 +31,7 @@ const Products = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [exibirComponenteInfo, setExibirComponenteInfo] = useState(false);
     const [exibirComponenteMove, setExibirComponenteMove] = useState(false);
+    const [exibirComponenteEdit, setExibirComponenteEdit] = useState(false);
 
     const handleCloseMovePopup = () => {
         setExibirComponenteMove(false);
@@ -37,6 +39,10 @@ const Products = () => {
 
     const handleCloseInfoPopup = () => {
         setExibirComponenteInfo(false);
+    };
+
+    const handleCloseEditPopup = () => {
+        setExibirComponenteEdit(false);
     };
 
     function handlerModal() {
@@ -111,7 +117,7 @@ const Products = () => {
         const productToEdit = products.find((product) => product.id === productId);
         if (productToEdit) {
             setSelectedProduct(productToEdit);
-            setModalOpen(true);
+            setExibirComponenteEdit(true);
         }
     }
 
@@ -218,6 +224,7 @@ const Products = () => {
                     </div>
                     {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup}/>}
                     {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseInfoPopup}/>}
+                    {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup}/>}
 
                 </div>
             </div>
