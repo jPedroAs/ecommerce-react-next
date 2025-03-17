@@ -35,7 +35,7 @@
     font-weight: bold;
     cursor: pointer;
 }
-.img{
+.container .img{
     width: 100px;
     height: 100px;
     position: relative;
@@ -66,9 +66,12 @@
     border-radius: 12px;
     color: #606060;
 }
-.items img{
+.items .img{
     position: relative;
     left: 10px;
+    top: 0px;
+    width: 41px;
+    height: 41px;
 }
 .p{
     height: 33px;

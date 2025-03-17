@@ -1,8 +1,8 @@
 import styles from "./MovePopup.module.css";
 import React, { useRef } from 'react';
 import { Product } from "../../Types/ProdutoInterface";
-import NameIcom from "../../Assets/FormCad/NameIcon.svg";
-import AmountIcom from "../../Assets/FormCad/AmountIcon.svg";
+import { SiNamecheap } from "react-icons/si";
+import { FaSortAmountDown, FaSortAmountUpAlt } from "react-icons/fa";
 import api from "@/services/api";
 import Swal from "sweetalert2";
 
@@ -50,22 +50,22 @@ const Popup = (props: Product) => {
 
             <form className={styles.content}>
                 <div className={styles.items}>
-                    <img src={NameIcom.src} alt="Nome" />
+                    <SiNamecheap className={styles.img} />
                     <p className={styles.p}>{props.nome}</p>
                 </div>
                 <div className={styles.items}>
-                    <img src={AmountIcom.src} alt="Quantidade da Entrada" />
+                    <FaSortAmountUpAlt className={styles.img} />
                     <input type="number" placeholder="Entrada" className={styles.input} ref={quatRefEnter} />
                 </div>
                 <div className={styles.items}>
-                    <img src={AmountIcom.src} alt="Quantidade da Saida" />
+                    <FaSortAmountDown className={styles.img} />
                     <input type="number" placeholder="Saida" className={styles.input} ref={quatRefExit} />
                 </div>
             </form>
 
             <button className={styles.btnClose} onClick={() => PutProduto(props.id)}>Atualizar</button>
             <button className={styles.btnClose} onClick={props.onClose}>Fechar</button>
-            
+
         </div>
     );
 };

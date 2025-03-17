@@ -1,10 +1,10 @@
 import styles from "./EditPopup.module.css";
 import React, { useRef, useState } from 'react';
 import { Product } from "@/Types/PedidoInterface";
-import NameIcom from "../../Assets/FormCad/NameIcon.svg";
-import ValueIcon from "../../Assets/FormCad/ValueIcon.svg";
-import FileIcon from "../../Assets/FormCad/FileIcon.svg";
-import AboutIcom from "../../Assets/FormCad/AboutIcon.svg";
+import { SiNamecheap } from "react-icons/si";
+import { LuDollarSign } from "react-icons/lu";
+import { GoFileDirectory } from "react-icons/go";
+import { MdOutlineDescription } from "react-icons/md";
 import api from "@/services/api";
 import Swal from "sweetalert2";
 
@@ -87,19 +87,19 @@ const Popup = (props: PopupProps) => {
 
             <form className={styles.form}>
                 <div className={styles.items}>
-                    <img src={NameIcom.src} alt="Nome" />
+                    <SiNamecheap className={styles.img} />
                     <input type="text" placeholder="Nome" className={styles.input} ref={NomeRef} />
                 </div>
                 <div className={styles.items}>
-                    <img src={ValueIcon.src} alt="Valor" />
+                    <LuDollarSign className={styles.img} />
                     <input type="number" placeholder="Valor" className={styles.input} ref={ValorRef} />
                 </div>
                 <div className={styles.items}>
-                    <img src={FileIcon.src} alt="Arquivo" />
+                    <GoFileDirectory className={styles.img} />
                     <input type="file" accept="image/*" className={styles.input} ref={imageRef} />
                 </div>
                 <div className={styles.items}>
-                    <img src={AboutIcom.src} alt="Descrição" />
+                    <MdOutlineDescription className={styles.img} />
                     <input type="text" placeholder="Descrição" className={styles.input} ref={descRef} />
                 </div>
             </form>

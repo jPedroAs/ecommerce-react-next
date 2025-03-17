@@ -24,4 +24,4 @@ export enum StatusPedido {
     Efetivado = 2
 }
 
-export { Product };
+export type { Product };

@@ -1,12 +1,7 @@
 "use client"
 import MainBar from "@/components/MainBar/MainBar";
 import styles from "./Products.module.css";
-import NameIcom from "../../Assets/FormCad/NameIcon.svg";
-import ValueIcon from "../../Assets/FormCad/ValueIcon.svg";
-import FileIcon from "../../Assets/FormCad/FileIcon.svg";
-import AboutIcom from "../../Assets/FormCad/AboutIcon.svg";
-import AmountIcom from "../../Assets/FormCad/AmountIcon.svg";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaSortAmountUpAlt } from "react-icons/fa";
 import { GrConfigure } from "react-icons/gr";
 import { Product } from "../../Types/ProdutoInterface"
 import React, { useState, useRef, useEffect } from 'react';
@@ -17,6 +12,11 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import InfoPopup from "../../components/InfoPopup/InfoPopup"
 import MovePopup from "../../components/MovePopup/MovePopup"
 import EditPopup from "../../components/EditPopup/EditPopup"
+import { SiNamecheap } from "react-icons/si";
+import { LuDollarSign } from "react-icons/lu";
+import { GoFileDirectory } from "react-icons/go";
+import { MdOutlineDescription } from "react-icons/md";
+
 
 const Products = () => {
 
@@ -150,23 +150,23 @@ const Products = () => {
                         <h2>Cadastrar Produto</h2>
                         <div className={styles.containerform}>
                             <div className={styles.items}>
-                                <img src={NameIcom.src} alt="Nome" />
+                                <SiNamecheap className={styles.img} />
                                 <input type="text" placeholder="Nome" className={styles.input} ref={NomeRef} />
                             </div>
                             <div className={styles.items}>
-                                <img src={ValueIcon.src} alt="Valor" />
+                                <LuDollarSign className={styles.img} />
                                 <input type="number" placeholder="Valor" className={styles.input} ref={ValorRef} />
                             </div>
                             <div className={styles.items}>
-                                <img src={FileIcon.src} alt="Arquivo" />
+                                <GoFileDirectory className={styles.img} />
                                 <input type="file" accept="image/*" className={styles.input} ref={imageRef} />
                             </div>
                             <div className={styles.items}>
-                                <img src={AboutIcom.src} alt="Descrição" />
+                                <MdOutlineDescription className={styles.img} />
                                 <input type="text" placeholder="Descrição" className={styles.input} ref={descRef} />
                             </div>
                             <div className={styles.items}>
-                                <img src={AmountIcom.src} alt="Quantidade" />
+                                <FaSortAmountUpAlt className={styles.img} />
                                 <input type="number" placeholder="Quantidade" className={styles.input} ref={quatRef} />
                             </div>
                         </div>
@@ -222,9 +222,9 @@ const Products = () => {
                             </tbody>
                         </table>
                     </div>
-                    {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup}/>}
-                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseInfoPopup}/>}
-                    {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup}/>}
+                    {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup} />}
+                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseInfoPopup} />}
+                    {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup} />}
 
                 </div>
             </div>

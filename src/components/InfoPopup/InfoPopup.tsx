@@ -1,10 +1,10 @@
 import styles from "./InfoPopup.module.css";
 import React, { useState } from 'react';
 import { Product } from "@/Types/PedidoInterface";
-import NameIcom from "../../Assets/FormCad/NameIcon.svg";
-import ValueIcon from "../../Assets/FormCad/ValueIcon.svg";
-import AboutIcom from "../../Assets/FormCad/AboutIcon.svg";
-import AmountIcom from "../../Assets/FormCad/AmountIcon.svg";
+import { SiNamecheap } from "react-icons/si";
+import { LuDollarSign } from "react-icons/lu";
+import { MdOutlineDescription } from "react-icons/md";
+import { FaSortAmountUpAlt } from "react-icons/fa";
 
 const popup = (props: Product) => {
 
@@ -16,19 +16,19 @@ const popup = (props: Product) => {
             <div className={styles.content}>
 
                 <div className={styles.items}>
-                    <img src={NameIcom.src} alt="Nome" />
+                    <SiNamecheap className={styles.img} />
                     <p className={styles.p}>{props.nome}</p>
                 </div>
                 <div className={styles.items}>
-                    <img src={ValueIcon.src} alt="Valor" />
+                    <LuDollarSign className={styles.img} />
                     <p className={styles.p}>{props.preco}</p>
                 </div>
                 <div className={styles.items}>
-                    <img src={AboutIcom.src} alt="Descrição" />
+                    <MdOutlineDescription className={styles.img} />
                     <p className={styles.p}>{props.descricao}</p>
                 </div>
                 <div className={styles.items}>
-                    <img src={AmountIcom.src} alt="Quantidade" />
+                    <FaSortAmountUpAlt className={styles.img} />
                     <p className={styles.p}>{props.quantidade}</p>
                 </div>
 
