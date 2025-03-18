@@ -111,6 +111,19 @@ const CheckoutForm = () => {
     if (error) {
       console.log(error)
     }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("Token não encontrado.");
+      return;
+    }
+    let decodedToken: any;
+    try {
+      decodedToken = jwtDecode(token);
+    } catch (error) {
+      console.error("Erro ao decodificar token:", error);
+      return;
+    }
     const nome = inputName.current?.value || "";  
     const cpf = inputCPF.current?.value || "";  
 
@@ -119,7 +132,8 @@ const CheckoutForm = () => {
       cpf: cpf,
       Card_token: paymentMethod?.id,
       amount:  Math.round(parseFloat(totalAmount) * 100),
-      type_payment: paymentType
+      type_payment: paymentType,
+      id_user: decodedToken.ID
     }
     console.log(body)
 
