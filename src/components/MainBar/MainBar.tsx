@@ -50,8 +50,8 @@ const MainBar = () => {
                     </div>
 
                     <div className={styles.icons}>
-                        <button className={styles.choissesicons} onClick={toggleNavHeight}><CiSearch id={styles.search} className={styles.img} /></button>
-                         <Link href="/Pesquisa">IoCartOutline</Link>
+                        <Link className={styles.choissesicons} href="/Pesquisa"><CiSearch id={styles.search} className={styles.img} /></Link>
+                        <button className={styles.choissesicons} onClick={handleCart}><IoCartOutline className={styles.img} /></button>
                         <Link href="/User" className={styles.choissesicons}><CiUser className={styles.img} /></Link>
                     </div>
                 </div>
