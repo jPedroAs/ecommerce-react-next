@@ -21,7 +21,7 @@ const Popup = (props: Product) => {
                 Preco: props.preco,
                 IMG: props.img,
                 Categoria: "ADS",
-                Quantidade:  QuantEnter != null ? props.quantidade + QuantEnter :  QuantExit != null ? props.quantidade - QuantExit : props.quantidade,
+                Quantidade:  QuantEnter != 0 ? props.quantidade + QuantEnter :  QuantExit != 0 ? props.quantidade - QuantExit : props.quantidade,
                 Curso: "ads",
                 Aval: 0,
                 QAval: 0
