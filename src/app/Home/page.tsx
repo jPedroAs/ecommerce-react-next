@@ -6,17 +6,29 @@ import { Product } from "../../Types/ProdutoInterface"
 import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import MainBar from '@/components/MainBar/MainBar';
-import NavBar from '@/components/NavBar';
+import { useAuth } from "../../hooks/useAuth";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import { GetServerSideProps } from "next";
+import nookies from "nookies";
+import Cookies from "js-cookie";
+import { redirect } from 'next/navigation';
 
 
 function Home() {
+  // useAuth();
+  const token = Cookies.get("token");
+
+  if (!token) {
+    redirect("/Login");
+  }
+
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         const response = await api.get(`/Produto`);
-        if(response.status == 200){
+        if (response.status == 200) {
           const data = await response.data;
           console.log(data)
           setProducts(data);
@@ -52,24 +64,24 @@ function Home() {
     }
     console.log(data)
     const response = await api.post("/Pedido", data)
-    .then(() => {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Adicionado no Carrinho",
-        showConfirmButton: false,
-        timer: 1500
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Adicionado no Carrinho",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "info",
+          title: "Item já foi adicionado no Carrinho",
+          showConfirmButton: false,
+          timer: 1500
+        });
       });
-    })
-    .catch(() => {
-      Swal.fire({
-        position: "top-end",
-        icon: "info",
-        title: "Item já foi adicionado no Carrinho",
-        showConfirmButton: false,
-        timer: 1500
-      });
-    });
     console.log(response)
 
   }
@@ -100,6 +112,10 @@ function Home() {
         </div>
       </div>
     </div>
+    // <ProtectedRoute allowedRoles={["admin"]}>
+    //   <h1>Página do Admin</h1>
+    //   <p>Somente administradores podem acessar esta página.</p>
+    // </ProtectedRoute>
   );
 }
 

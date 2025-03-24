@@ -7,11 +7,11 @@ import api from "../../services/api"
 import { useState, useRef } from "react";
 import Swal from 'sweetalert2';
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/authStore";
 
 
 function Login() {
-  const router = useRouter();
-
+  const login = useAuthStore((state) => state.login);
   const inputName = useRef<HTMLInputElement>(null);
   const inputRa = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
@@ -28,32 +28,21 @@ function Login() {
       senha: inputLoginSenha.current?.value
     }
     try {
-      const response = await api.post("/Login", body)
-      console.log(response.status)
-      if (response.status == 200) {
-        const data = response.data
-        console.log(data)
-        localStorage.removeItem("token")
-        localStorage.setItem("token", data.token);
-        // router.push("/Home");
+      const response = await api.post("/Login", body);
+      if (response.status === 200) {
+        const data = response.data;
+        login(data);
+        // document.cookie = `token=${data.token}; path=/; max-age=3600`;
         window.location.href = "/Home";
-      }
-      else if (response.status == 204) {
+      } else {
         Swal.fire({
-          text: "Usário não registrado",
-          icon: "error",
-        });
-      }
-      else if (response.status == 400) {
-        Swal.fire({
-          text: "Senha Inválida",
+          text: "Credenciais inválidas",
           icon: "error",
         });
       }
     } catch (error) {
-      console.log(error)
       Swal.fire({
-        text: "Ocorreu um erro ao Fazer o Login.",
+        text: "Erro ao fazer login.",
         icon: "error",
       });
     }
