@@ -1,7 +1,8 @@
 import axios from 'axios'
+import Cookies from "js-cookie";
 
 const api = axios.create({
-    baseURL:"https://eiif5bjnih.execute-api.us-east-1.amazonaws.com",
+    baseURL:"https://santapiapi.onrender.com",
     headers: {
         'Content-Type': 'application/json',
     }
@@ -9,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
     if (typeof window !== "undefined") {
-        const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
+        const token = Cookies.get("token");
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }

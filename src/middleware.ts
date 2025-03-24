@@ -1,23 +1,8 @@
-// import { NextRequest, NextResponse } from 'next/server';
-
-// export function middleware(req: NextRequest) {
-//     const token = req.cookies.get('token')?.value;
-  
-//     if (!token && req.nextUrl.pathname !== '/Login') {
-//         return NextResponse.redirect(new URL('/Login', req.url));
-//     }
-
-//     return NextResponse.next();
-// }
-
-// export const config = {
-//     matcher: ['/:path*']
-// };
-
 import { NextResponse } from "next/server";
 import { jwtDecode } from "jwt-decode";
 import type { NextRequest } from "next/server";
 import { User } from "@/Types/User";
+import { useAuthStore } from "./store/authStore";
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;

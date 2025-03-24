@@ -12,6 +12,7 @@ import { useAuthStore } from "@/store/authStore";
 
 function Login() {
   const login = useAuthStore((state) => state.login);
+  const logout = useAuthStore((state) => state.logout);
   const inputName = useRef<HTMLInputElement>(null);
   const inputRa = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
@@ -31,7 +32,9 @@ function Login() {
       const response = await api.post("/Login", body);
       if (response.status === 200) {
         const data = response.data;
-        login(data);
+        logout();
+        login(data.token);
+        // console.log("Usuário atual no Zustand:", useAuthStore.getState().user?.role);
         // document.cookie = `token=${data.token}; path=/; max-age=3600`;
         window.location.href = "/Home";
       } else {

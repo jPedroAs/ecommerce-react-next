@@ -6,17 +6,16 @@ import { Product } from "../../Types/ProdutoInterface"
 import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import MainBar from '@/components/MainBar/MainBar';
-import { useAuth } from "../../hooks/useAuth";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import { GetServerSideProps } from "next";
-import nookies from "nookies";
 import Cookies from "js-cookie";
 import { redirect } from 'next/navigation';
-
+import { NextRequest } from 'next/server';
+import { useAuthStore } from '@/store/authStore';
 
 function Home() {
-  // useAuth();
-  const token = Cookies.get("token");
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("token="))
+    ?.split("=")[1]
 
   if (!token) {
     redirect("/Login");

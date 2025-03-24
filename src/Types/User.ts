@@ -1,6 +1,10 @@
 export type User = {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  } | null;
+  ID: string;
+  email: string;
+  exp: number;
+  given_name: string;
+  iat: number;
+  name: string;
+  nbf: number;
+  role: string;
+}

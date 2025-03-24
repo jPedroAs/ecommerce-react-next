@@ -10,6 +10,7 @@ import { Pedidos } from "@/Types/PedidoInterface";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const stripePromise = loadStripe("pk_test_51Qz3IoFY2T2EW3rQl4qfXPbjp27xZK9vlCMl9pIBvdJd6UfPhpH18FYMIQxWvKWjy0yfM2ea0wLeqHZufFASXMyo0060uTKfRP");
 
@@ -33,6 +34,14 @@ const CARD_OPTIONS = {
 };
 
 const CheckoutForm = () => {
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("token="))
+    ?.split("=")[1]
+
+  if (!token) {
+    redirect("/Login");
+  }
   const inputName = useRef<HTMLInputElement>(null);
   const inputCPF = useRef<HTMLInputElement>(null);
 
@@ -83,8 +92,8 @@ const CheckoutForm = () => {
 
   const totalAmount = Array.isArray(pedido) ? pedido.reduce((sum, pedido) => sum + (pedido.produtos.preco * (pedido.pedidos.qnt_prod_unidade || 1)), 0).toFixed(2) : '0.00';
 
-  
-  async function PostPagamento (e: React.FormEvent) {
+
+  async function PostPagamento(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
 
@@ -124,14 +133,14 @@ const CheckoutForm = () => {
       console.error("Erro ao decodificar token:", error);
       return;
     }
-    const nome = inputName.current?.value || "";  
-    const cpf = inputCPF.current?.value || "";  
+    const nome = inputName.current?.value || "";
+    const cpf = inputCPF.current?.value || "";
 
     const body = {
       name: nome,
       cpf: cpf,
       Card_token: paymentMethod?.id,
-      amount:  Math.round(parseFloat(totalAmount) * 100),
+      amount: Math.round(parseFloat(totalAmount) * 100),
       type_payment: paymentType,
       id_user: decodedToken.ID
     }
