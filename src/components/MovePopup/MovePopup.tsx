@@ -13,14 +13,13 @@ const Popup = (props: Product, pops: Movimentacao) => {
 
     async function PatchProduto(id: string) {
         try {
+            console.log(id)
             const quantidadeMovimentada = quatRef.current?.value ? parseInt(quatRef.current.value, 10) : 0;
             const tipoMovimento = moveRef.current?.value || "";
             const motivo = typeRef.current?.value || "";
     
             const body = {
-                Descricao: motivo,
-                QTD: quantidadeMovimentada,
-                TipoMovimentacao: tipoMovimento
+                Descricao: motivo
             };
     
             console.log(body);
