@@ -5,5 +5,6 @@ export interface Product {
     img: string;
     descricao: string;
     quantidade: number;
+    TipoMovimento: string;
     onClose: () => void;
 }
