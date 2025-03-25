@@ -165,9 +165,7 @@ const Products = () => {
         try {
 
             const response = await api.get(`/Estoques/${id}`);
-            console.log(response.data)
             const estoqueQTD = response.data.estoqueQTD; // Extrai estoqueQTD da resposta
-            console.log("EstoqueQTD obtido:", estoqueQTD);
             setQuantidade(estoqueQTD);
         } catch (error) {
             console.error("Erro ao obter estoqueQTD:", error);
