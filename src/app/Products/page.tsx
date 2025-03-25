@@ -1,7 +1,7 @@
 "use client"
 import MainBar from "@/components/MainBar/MainBar";
 import styles from "./Products.module.css";
-import { FaEdit, FaSortAmountUpAlt } from "react-icons/fa";
+import { FaEdit, FaRegTrashAlt, FaSortAmountUpAlt } from "react-icons/fa";
 import { GrConfigure } from "react-icons/gr";
 import { Product } from "../../Types/ProdutoInterface"
 import React, { useState, useRef, useEffect } from 'react';
@@ -140,6 +140,25 @@ const Products = () => {
         }
     }
 
+    async function handleDelete(id: string) {
+        try {
+            console.log(id);
+            const response = await api.delete(`/Produto/${id}`);
+            console.log(response);
+            setProducts(products.filter(product => product.id !== id));
+            Swal.fire({
+                text: "Produto deletado com sucesso.",
+                icon: "success",
+            });
+        } catch (error) {
+            console.error("Erro ao deletar produto:", error);
+            Swal.fire({
+                text: "Erro ao deletar o produto.",
+                icon: "error",
+            });
+        }
+    }
+
     return (
         <>
             <div className={styles.main}>
@@ -208,6 +227,9 @@ const Products = () => {
                                                 </button>
                                                 <button onClick={() => handleInfo(product.id)} className={styles.btnChoices}>
                                                     <IoIosInformationCircleOutline />
+                                                </button>
+                                                <button onClick={() => handleDelete(product.id)} className={styles.btnChoices}>
+                                                    <FaRegTrashAlt />
                                                 </button>
                                             </td>
                                         </tr>

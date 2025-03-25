@@ -62,7 +62,7 @@
 }
 .BtnGroup{
     width: 440px;
-    height: 170px;
+    height: 110px;
     display: flex;
     align-items: center;
     justify-content: space-between;

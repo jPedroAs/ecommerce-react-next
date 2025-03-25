@@ -1,5 +1,4 @@
 "use client";
-import "../Produtos/index.css"
 import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
 import Swal from 'sweetalert2';

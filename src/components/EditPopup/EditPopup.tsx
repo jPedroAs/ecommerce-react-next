@@ -88,25 +88,24 @@ const Popup = (props: PopupProps) => {
             <form className={styles.form}>
                 <div className={styles.items}>
                     <SiNamecheap className={styles.img} />
-                    <input type="text" placeholder="Nome" className={styles.input} ref={NomeRef} />
+                    <input type="text" placeholder="Nome" className={styles.input} ref={NomeRef} defaultValue={props.nome}/>
                 </div>
                 <div className={styles.items}>
                     <LuDollarSign className={styles.img} />
-                    <input type="number" placeholder="Valor" className={styles.input} ref={ValorRef} />
+                    <input type="number" placeholder="Valor" className={styles.input} ref={ValorRef} defaultValue={props.preco}/>
                 </div>
                 <div className={styles.items}>
                     <GoFileDirectory className={styles.img} />
-                    <input type="file" accept="image/*" className={styles.input} ref={imageRef} />
+                    <input type="file" accept="image/*" className={styles.input} ref={imageRef}/>
                 </div>
                 <div className={styles.items}>
                     <MdOutlineDescription className={styles.img} />
-                    <input type="text" placeholder="Descrição" className={styles.input} ref={descRef} />
+                    <input type="text" placeholder="Descrição" className={styles.input} ref={descRef} defaultValue={props.descricao}/>
                 </div>
             </form>
 
             <div className={styles.BtnGroup}>
                 <button onClick={() => PutProduto(props.id)} className={styles.btnClose}>Enviar</button>
-                <button onClick={() => handleDelete(props.id)} className={styles.btnClose}>Deletar</button>
                 <button onClick={props.onClose} className={styles.btnClose}>Fechar</button>
             </div>
         </div>

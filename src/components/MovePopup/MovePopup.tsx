@@ -1,33 +1,29 @@
 import styles from "./MovePopup.module.css";
 import React, { useRef } from 'react';
 import { Product } from "../../Types/ProdutoInterface";
-import { SiNamecheap } from "react-icons/si";
 import { FaSortAmountDown, FaSortAmountUpAlt } from "react-icons/fa";
 import api from "@/services/api";
 import Swal from "sweetalert2";
 
 const Popup = (props: Product) => {
-    const quatRefEnter = useRef<HTMLInputElement>(null);
-    const quatRefExit = useRef<HTMLInputElement>(null);
+    const quatRef = useRef<HTMLInputElement>(null);
+    const moveRef = useRef<HTMLInputElement>(null);
+    const typeRef = useRef<HTMLInputElement>(null);
 
-    async function PutProduto(id: string) {
+    async function PatchProduto(id: string) {
         try {
-            const QuantEnter = quatRefEnter.current?.value ? parseInt(quatRefEnter.current.value, 10) : 0;
-            const QuantExit = quatRefExit.current?.value ? parseInt(quatRefExit.current.value, 10) : 0;
-            props.onClose
+            console.log(id)
+            const quantidadeMovimentada = quatRef.current?.value ? parseInt(quatRef.current.value, 10) : 0;
+            const tipoMovimento = moveRef.current?.value || "";
+            const motivo = typeRef.current?.value || "";
+    
             const body = {
-                Nome: props.nome,
-                Descricao: props.descricao,
-                Preco: props.preco,
-                IMG: props.img,
-                Categoria: "ADS",
-                Quantidade:  QuantEnter != 0 ? props.quantidade + QuantEnter :  QuantExit != 0 ? props.quantidade - QuantExit : props.quantidade,
-                Curso: "ads",
-                Aval: 0,
-                QAval: 0
+                Descricao: motivo
             };
+    
             console.log(body);
-            await api.put(`/Produto/${id}`, body);
+            await api.patch(`/Produto/qtd/${tipoMovimento}/${id}/${quantidadeMovimentada}`, body);
+    
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -35,9 +31,11 @@ const Popup = (props: Product) => {
                 showConfirmButton: false,
                 timer: 1500
             });
-        } catch {
+            props.onClose();
+        } catch (error) {
+            console.error("Erro na atualização:", error);
             Swal.fire({
-                text: "Ocorreu um Error.",
+                text: "Ocorreu um Erro.",
                 icon: "error"
             });
         }
@@ -50,22 +48,21 @@ const Popup = (props: Product) => {
 
             <form className={styles.content}>
                 <div className={styles.items}>
-                    <SiNamecheap className={styles.img} />
-                    <p className={styles.p}>{props.nome}</p>
-                </div>
-                <div className={styles.items}>
                     <FaSortAmountUpAlt className={styles.img} />
-                    <input type="number" placeholder="Entrada" className={styles.input} ref={quatRefEnter} />
+                    <input type="number" placeholder="Quantidade Movimentada" className={styles.input} ref={quatRef} />
                 </div>
                 <div className={styles.items}>
                     <FaSortAmountDown className={styles.img} />
-                    <input type="number" placeholder="Saida" className={styles.input} ref={quatRefExit} />
+                    <input type="text" placeholder="Tipo de Movimento" className={styles.input} ref={moveRef} />
+                </div>
+                <div className={styles.items}>
+                    <FaSortAmountDown className={styles.img} />
+                    <input type="text" placeholder="Motivo" className={styles.input} ref={typeRef} />
                 </div>
             </form>
 
-            <button className={styles.btnClose} onClick={() => PutProduto(props.id)}>Atualizar</button>
+            <button className={styles.btnClose} onClick={() => PatchProduto(props.id)}>Atualizar</button>
             <button className={styles.btnClose} onClick={props.onClose}>Fechar</button>
-
         </div>
     );
 };
