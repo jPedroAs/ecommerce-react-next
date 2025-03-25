@@ -19,16 +19,16 @@ import { MdOutlineDescription } from "react-icons/md";
 
 
 const Products = () => {
-
+  
     const NomeRef = useRef<HTMLInputElement>(null);
     const ValorRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
     const descRef = useRef<HTMLInputElement>(null);
     const quatRef = useRef<HTMLInputElement>(null);
-    let qua = 0;
     const [products, setProducts] = useState<Product[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [quantidade , setQuantidade] = useState<number>(0);
     const [exibirComponenteInfo, setExibirComponenteInfo] = useState(false);
     const [exibirComponenteMove, setExibirComponenteMove] = useState(false);
     const [exibirComponenteEdit, setExibirComponenteEdit] = useState(false);
@@ -111,17 +111,12 @@ const Products = () => {
             });
         }
     }
-    useEffect(() => {
-        console.log(selectedProduct);
-    }, [selectedProduct]);
-    
 
     function handleEdit(productId: string) {
         const productToEdit = products.find((product) => product.id === productId);
        
         if (productToEdit) {
             setSelectedProduct((prev) => productToEdit ? { ...prev, ...productToEdit } : prev);
-            console.log(selectedProduct);
             // setSelectedProduct(productToEdit);
             
             setExibirComponenteEdit(true);
@@ -160,7 +155,6 @@ const Products = () => {
 
         const productGet = products.find((product) => product.id === productId);
         getEstoqueQTD(productId);
-
         if (productGet) {
             setSelectedProduct(productGet);
             setExibirComponenteInfo(true);
@@ -169,17 +163,18 @@ const Products = () => {
 
     async function getEstoqueQTD(id: string){
         try {
-            const response = await api.get(`/Estoque/${id}`);
+
+            const response = await api.get(`/Estoques/${id}`);
+            console.log(response.data)
             const estoqueQTD = response.data.estoqueQTD; // Extrai estoqueQTD da resposta
             console.log("EstoqueQTD obtido:", estoqueQTD);
-            return estoqueQTD;
+            setQuantidade(estoqueQTD);
         } catch (error) {
             console.error("Erro ao obter estoqueQTD:", error);
             Swal.fire({
                 text: "Erro ao obter estoqueQTD.",
                 icon: "error",
             });
-            return null;
         }
     }
 
@@ -271,7 +266,7 @@ const Products = () => {
                     </div>
                     {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup} />}
                     {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup} />}
-                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={qua} onClose={handleCloseInfoPopup} />}
+                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={quantidade} onClose={handleCloseInfoPopup} />}
                 </div>
             </div>
             <ModalProducts isOpen={modalOpen} onClosed={handlerModal} data={selectedProduct ? [selectedProduct] : []} />
