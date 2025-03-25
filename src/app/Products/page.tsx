@@ -25,7 +25,7 @@ const Products = () => {
     const imageRef = useRef<HTMLInputElement>(null);
     const descRef = useRef<HTMLInputElement>(null);
     const quatRef = useRef<HTMLInputElement>(null);
-
+    let qua = 0;
     const [products, setProducts] = useState<Product[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -137,16 +137,6 @@ const Products = () => {
         }
     }
 
-    async function handleInfo(productId: string) {
-
-        const productGet = products.find((product) => product.id === productId);
-
-        if (productGet) {
-            setSelectedProduct(productGet);
-            setExibirComponenteInfo(true);
-        }
-    }
-
     async function handleDelete(id: string) {
         try {
             console.log(id);
@@ -163,6 +153,33 @@ const Products = () => {
                 text: "Erro ao deletar o produto.",
                 icon: "error",
             });
+        }
+    }
+
+    async function handleInfo(productId: string) {
+
+        const productGet = products.find((product) => product.id === productId);
+        getEstoqueQTD(productId);
+
+        if (productGet) {
+            setSelectedProduct(productGet);
+            setExibirComponenteInfo(true);
+        }
+    }
+
+    async function getEstoqueQTD(id: string){
+        try {
+            const response = await api.get(`/Estoque/${id}`);
+            const estoqueQTD = response.data.estoqueQTD; // Extrai estoqueQTD da resposta
+            console.log("EstoqueQTD obtido:", estoqueQTD);
+            return estoqueQTD;
+        } catch (error) {
+            console.error("Erro ao obter estoqueQTD:", error);
+            Swal.fire({
+                text: "Erro ao obter estoqueQTD.",
+                icon: "error",
+            });
+            return null;
         }
     }
 
@@ -235,6 +252,10 @@ const Products = () => {
                                                 <button onClick={() => handleDelete(product.id)} className={styles.btnChoices}>
                                                     <FaRegTrashAlt />
                                                 </button>
+                                                
+                                                <button onClick={() => handleInfo(product.id)} className={styles.btnChoices}>
+                                                    <IoIosInformationCircleOutline />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
@@ -250,7 +271,7 @@ const Products = () => {
                     </div>
                     {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup} />}
                     {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup} />}
-
+                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={qua} onClose={handleCloseInfoPopup} />}
                 </div>
             </div>
             <ModalProducts isOpen={modalOpen} onClosed={handlerModal} data={selectedProduct ? [selectedProduct] : []} />
