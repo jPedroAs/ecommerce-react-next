@@ -111,12 +111,19 @@ const Products = () => {
             });
         }
     }
+    useEffect(() => {
+        console.log(selectedProduct);
+    }, [selectedProduct]);
+    
 
-
-    async function handleEdit(productId: string) {
+    function handleEdit(productId: string) {
         const productToEdit = products.find((product) => product.id === productId);
+       
         if (productToEdit) {
-            setSelectedProduct(productToEdit);
+            setSelectedProduct((prev) => productToEdit ? { ...prev, ...productToEdit } : prev);
+            console.log(selectedProduct);
+            // setSelectedProduct(productToEdit);
+            
             setExibirComponenteEdit(true);
         }
     }
@@ -241,8 +248,8 @@ const Products = () => {
                             </tbody>
                         </table>
                     </div>
-                    {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup} />}
-                    {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup} />}
+                    {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup} />}
+                    {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup} />}
 
                 </div>
             </div>
