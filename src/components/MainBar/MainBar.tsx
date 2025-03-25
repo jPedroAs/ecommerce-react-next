@@ -11,6 +11,7 @@ import { CiSearch } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import { CiUser } from "react-icons/ci";
 import { FiCodesandbox } from "react-icons/fi";
+import { useAuthStore } from "@/store/authStore";
 
 const MainBar = () => {
 
@@ -24,6 +25,11 @@ const MainBar = () => {
 
     async function handleCart() {
         setModalOpen(true);
+    }
+
+    async function Logout() {
+       useAuthStore.getState().logout();
+       window.location.href = "/Login"; 
     }
 
     const toggleNavHeight = () => {
@@ -53,6 +59,7 @@ const MainBar = () => {
                         <Link className={styles.choissesicons} href="/Pesquisa"><CiSearch id={styles.search} className={styles.img} /></Link>
                         <button className={styles.choissesicons} onClick={handleCart}><IoCartOutline className={styles.img} /></button>
                         <Link href="/User" className={styles.choissesicons}><CiUser className={styles.img} /></Link>
+                        <button className={styles.choissesicons} onClick={Logout}>Logout</button>
                     </div>
                 </div>
                 {isVisible && <div className={styles.searchbar}><input type="text" placeholder="Pesquise Aqui" /></div>}
