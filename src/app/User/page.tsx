@@ -1,21 +1,16 @@
 "use client";
 import "../Produtos/index.css"
-import ModalProducts from "../../components/ModalProducts/ModalEditiProducts";
 import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
 import Swal from 'sweetalert2';
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import { Users } from "../../Types/UserInterface"
 import { jwtDecode } from 'jwt-decode';
-import { useRouter } from "next/navigation";
 import MainBar from "@/components/MainBar/MainBar";
 
 
 
 function User() {
-    const router = useRouter();
-    
+
     const NomeRef = useRef<HTMLInputElement>(null);
     const EmailRef = useRef<HTMLInputElement>(null);
     const SenhaRef = useRef<HTMLInputElement>(null);
@@ -29,29 +24,29 @@ function User() {
     const NumeroRef = useRef<HTMLInputElement>(null);
     const TelefoneRef = useRef<HTMLInputElement>(null);
     const [user, setUser] = useState<Users[]>([]);
-    
-    function tokenId(){
+
+    function tokenId() {
         let id = "";
         const token = localStorage.getItem('token');
-        if(token){
-            const decodedToken: {ID: string} = jwtDecode(token);
+        if (token) {
+            const decodedToken: { ID: string } = jwtDecode(token);
             id = decodedToken.ID
         }
         return id
     }
 
-    function EventFor(event: React.FormEvent){
+    function EventFor(event: React.FormEvent) {
         return event.preventDefault();
     }
 
     useEffect(() => {
         async function fetchUser() {
             try {
-                
+
                 const response = await api.get(`/Account/${tokenId()}`);
                 const data = await response.data;
                 console.log(data)
-                setUser(Array.isArray(data)? data: [data]);
+                setUser(Array.isArray(data) ? data : [data]);
             } catch (error) {
                 console.error("Erro ao buscar produtos:", error);
             }
@@ -63,18 +58,18 @@ function User() {
     async function PutUser(event: React.FormEvent) {
         event.preventDefault();
         try {
-            const body = {     
-                name: NomeRef.current?.value,   
-                email:EmailRef.current?.value,    
-                senha: user[0].senha,   
-                ra: RARef.current?.value,       
-                telefone: TelefoneRef.current?.value, 
-                role: RoleRef.current?.value,     
-                cep: CepRef.current?.value,      
-                rua: RuaRef.current?.value,    
-                bairro: BairroRef.current?.value,  
-                cidade: CidadeRef.current?.value,   
-                estado: EstadoRef.current?.value,   
+            const body = {
+                name: NomeRef.current?.value,
+                email: EmailRef.current?.value,
+                senha: user[0].senha,
+                ra: RARef.current?.value,
+                telefone: TelefoneRef.current?.value,
+                role: RoleRef.current?.value,
+                cep: CepRef.current?.value,
+                rua: RuaRef.current?.value,
+                bairro: BairroRef.current?.value,
+                cidade: CidadeRef.current?.value,
+                estado: EstadoRef.current?.value,
                 numero: NumeroRef.current?.value
             }
             console.log(body);
@@ -103,28 +98,28 @@ function User() {
     // }
 
     async function handleDelete() {
-    try {
-        const response = await api.delete(`/Account/${tokenId()}`);
-        console.log(response)
-        if(response.status == 200){
-            localStorage.removeItem("token");
-            router.push("/Login");
+        try {
+            const response = await api.delete(`/Account/${tokenId()}`);
+            console.log(response)
+            if (response.status == 200) {
+                localStorage.removeItem("token");
+                window.location.href = "/Login";
+            }
+        } catch (error) {
+            Swal.fire({
+                text: "Erro ao deletar o produto.",
+                icon: "error",
+            });
         }
-    } catch (error) {
-        Swal.fire({
-            text: "Erro ao deletar o produto.",
-            icon: "error",
-        });
     }
-}
 
 
     return (
         <div className="block bg-white min-h-screen">
-      <MainBar />
-      <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
-                    <h2 className="text-2xl font-bold text-center text-gray-700">Tela do Usuário</h2>
-                    {user.map((user) => (
+            <MainBar />
+            <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
+                <h2 className="text-2xl font-bold text-center text-gray-700">Tela do Usuário</h2>
+                {user.map((user) => (
                     <form onSubmit={PutUser} key={user.id} className="bg-white p-10 rounded-lg shadow-lg w-full max-w-lg flex flex-col gap-4">
                         <input
                             type="text"
@@ -137,7 +132,7 @@ function User() {
                             type="text"
                             placeholder="Email"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.email} 
+                            defaultValue={user.email}
                             ref={EmailRef}
                         />
                         {/* <input
@@ -150,21 +145,21 @@ function User() {
                             type="text"
                             placeholder="RA"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.ra} 
+                            defaultValue={user.ra}
                             ref={RARef}
                         />
                         <input
                             type="text"
                             placeholder="Telefone"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.telefone} 
+                            defaultValue={user.telefone}
                             ref={TelefoneRef}
                         />
                         <input
                             type="text"
                             placeholder="Role"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.role} 
+                            defaultValue={user.role}
                             readOnly
                             ref={RoleRef}
                         />
@@ -172,52 +167,52 @@ function User() {
                             type="text"
                             placeholder="Cep"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.cep} 
+                            defaultValue={user.cep}
                             ref={CepRef}
                         />
                         <input
                             type="text"
                             placeholder="Rua"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.rua} 
+                            defaultValue={user.rua}
                             ref={RuaRef}
                         />
                         <input
                             type="text"
                             placeholder="Bairro"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.bairro} 
+                            defaultValue={user.bairro}
                             ref={BairroRef}
                         />
                         <input
                             type="text"
                             placeholder="Cidade"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.cidade} 
+                            defaultValue={user.cidade}
                             ref={CidadeRef}
                         />
                         <input
                             type="text"
                             placeholder="Estado"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.estado} 
+                            defaultValue={user.estado}
                             ref={EstadoRef}
                         />
                         <input
                             type="text"
                             placeholder="Numero"
                             className="border border-gray-300 p-4 rounded-lg w-full text-lg bg-white text-black"
-                            defaultValue={user.numero} 
+                            defaultValue={user.numero}
                             ref={NumeroRef}
                         />
-                        <button 
-                            onClick={PutUser} 
+                        <button
+                            onClick={PutUser}
                             className="bg-blue-600 text-white p-4 rounded-lg w-full text-lg hover:bg-blue-700"
                         >
                             Atualizar
                         </button>
-                        <button 
-                            onClick={handleDelete} 
+                        <button
+                            onClick={handleDelete}
                             className="bg-red-600 text-white p-4 rounded-lg w-full text-lg hover:bg-blue-700"
                         >
                             Delete
@@ -226,7 +221,7 @@ function User() {
                 ))}
             </div>
         </div>
-        
+
     );
 }
 

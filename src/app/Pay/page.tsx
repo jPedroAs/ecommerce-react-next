@@ -3,13 +3,13 @@
 import api from "../../services/api"
 import { useEffect, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement, CardElement } from "@stripe/react-stripe-js";
+import { Elements, useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import "./index.css";
 import MainBar from "@/components/MainBar/MainBar";
 import { Pedidos } from "@/Types/PedidoInterface";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
-import Link from "next/link";
+import { useAuthStore } from "@/store/authStore";
 
 const stripePromise = loadStripe("pk_test_51Qz3IoFY2T2EW3rQl4qfXPbjp27xZK9vlCMl9pIBvdJd6UfPhpH18FYMIQxWvKWjy0yfM2ea0wLeqHZufFASXMyo0060uTKfRP");
 
@@ -33,6 +33,7 @@ const CARD_OPTIONS = {
 };
 
 const CheckoutForm = () => {
+
   const inputName = useRef<HTMLInputElement>(null);
   const inputCPF = useRef<HTMLInputElement>(null);
 
@@ -55,19 +56,9 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     async function fetchProducts() {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("Token não encontrado.");
-        return;
-      }
-      let decodedToken: any;
-      try {
-        decodedToken = jwtDecode(token);
-      } catch (error) {
-        console.error("Erro ao decodificar token:", error);
-        return;
-      }
-      const responsePedido = await api.get(`/Pedido/${decodedToken.ID}`).then((responsePedido) => {
+      useAuthStore.getState().loadUserFromCookies();
+      const id_user = useAuthStore.getState().user?.ID;
+      const responsePedido = await api.get(`/Pedido/${id_user}`).then((responsePedido) => {
         if (Array.isArray(responsePedido.data.pedido)) {
           const data = responsePedido.data.pedido;
           setPedido(data);
@@ -83,8 +74,8 @@ const CheckoutForm = () => {
 
   const totalAmount = Array.isArray(pedido) ? pedido.reduce((sum, pedido) => sum + (pedido.produtos.preco * (pedido.pedidos.qnt_prod_unidade || 1)), 0).toFixed(2) : '0.00';
 
-  
-  async function PostPagamento (e: React.FormEvent) {
+
+  async function PostPagamento(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
 
@@ -124,14 +115,14 @@ const CheckoutForm = () => {
       console.error("Erro ao decodificar token:", error);
       return;
     }
-    const nome = inputName.current?.value || "";  
-    const cpf = inputCPF.current?.value || "";  
+    const nome = inputName.current?.value || "";
+    const cpf = inputCPF.current?.value || "";
 
     const body = {
       name: nome,
       cpf: cpf,
       Card_token: paymentMethod?.id,
-      amount:  Math.round(parseFloat(totalAmount) * 100),
+      amount: Math.round(parseFloat(totalAmount) * 100),
       type_payment: paymentType,
       id_user: decodedToken.ID
     }

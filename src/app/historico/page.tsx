@@ -10,7 +10,7 @@ import NavBar from '@/components/NavBar';
 
 
 async function fetchHistorico() {
-    const res = await fetch("https://eiif5bjnih.execute-api.us-east-1.amazonaws.com/HistoricoMovimentacao");
+    const res = await fetch("https://santapiapi.onrender.com/HistoricoMovimentacao");
     if (!res.ok) {
       throw new Error("Erro ao buscar os dados");
     }
