@@ -3,7 +3,6 @@ import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
 import Swal from 'sweetalert2';
 import { Users } from "../../Types/UserInterface"
-import { jwtDecode } from 'jwt-decode';
 import MainBar from "@/components/MainBar/MainBar";
 import { useAuthStore } from "@/store/authStore";
 

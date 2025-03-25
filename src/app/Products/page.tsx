@@ -225,9 +225,6 @@ const Products = () => {
                                                 <button onClick={() => handleEdit(product.id)} className={styles.btnChoices}>
                                                     <GrConfigure />
                                                 </button>
-                                                <button onClick={() => handleInfo(product.id)} className={styles.btnChoices}>
-                                                    <IoIosInformationCircleOutline />
-                                                </button>
                                                 <button onClick={() => handleDelete(product.id)} className={styles.btnChoices}>
                                                     <FaRegTrashAlt />
                                                 </button>
@@ -245,7 +242,6 @@ const Products = () => {
                         </table>
                     </div>
                     {exibirComponenteMove && selectedProduct && <MovePopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseMovePopup} />}
-                    {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseInfoPopup} />}
                     {exibirComponenteEdit && selectedProduct && <EditPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={0} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={selectedProduct.quantidade} onClose={handleCloseEditPopup} />}
 
                 </div>

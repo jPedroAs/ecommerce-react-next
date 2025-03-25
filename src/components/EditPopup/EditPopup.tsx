@@ -16,7 +16,6 @@ const Popup = (props: PopupProps) => {
     const ValorRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
     const descRef = useRef<HTMLInputElement>(null);
-    const [products, setProducts] = useState<Product[]>([]);
 
     async function PutProduto(id: string) {
         try {
@@ -55,26 +54,6 @@ const Popup = (props: PopupProps) => {
             console.error("Erro ao atualizar produto:", error);
             Swal.fire({
                 text: "Ocorreu um Erro ao atualizar o produto.",
-                icon: "error",
-            });
-        }
-    }
-
-    async function handleDelete(id: string) {
-        try {
-            console.log(id);
-            const response = await api.delete(`/Produto/${id}`);
-            console.log(response);
-            setProducts(products.filter(product => product.id !== id));
-            Swal.fire({
-                text: "Produto deletado com sucesso.",
-                icon: "success",
-            });
-            props.onClose
-        } catch (error) {
-            console.error("Erro ao deletar produto:", error);
-            Swal.fire({
-                text: "Erro ao deletar o produto.",
                 icon: "error",
             });
         }
