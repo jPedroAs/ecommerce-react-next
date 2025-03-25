@@ -102,19 +102,9 @@ const CheckoutForm = () => {
     if (error) {
       console.log(error)
     }
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("Token não encontrado.");
-      return;
-    }
-    let decodedToken: any;
-    try {
-      decodedToken = jwtDecode(token);
-    } catch (error) {
-      console.error("Erro ao decodificar token:", error);
-      return;
-    }
+    useAuthStore.getState().loadUserFromCookies();
+    const id_user = useAuthStore.getState().user?.ID;
+    
     const nome = inputName.current?.value || "";
     const cpf = inputCPF.current?.value || "";
 
@@ -124,18 +114,23 @@ const CheckoutForm = () => {
       Card_token: paymentMethod?.id,
       amount: Math.round(parseFloat(totalAmount) * 100),
       type_payment: paymentType,
-      id_user: decodedToken.ID
+      id_user: id_user
     }
     console.log(body)
 
     const response = await api.post("/Pay", body)
       .then((response) => {
         Swal.fire({
+          title: "Pagamento Realizado!",
           text: `Compra Realizada com Sucesso. Aqui está o Número do seu Pedido: ${response.data.id}`,
           icon: "success",
+          confirmButtonText: "OK",
+          willClose: () => {
+            window.location.href = "/Home"; 
+          }
         });
-        window.location.href = "/Home";
       })
+     
   };
 
 
@@ -174,7 +169,7 @@ const CheckoutForm = () => {
               <h2 className="payment-title">
                 Preencha os detalhes do seu {paymentType === "credit" ? "Cartão de Crédito" : "Cartão de Débito"}
               </h2>
-              <form onSubmit={PostPagamento} className="form">
+              <form className="form">
                 <div className="input-container">
                   <CardElement key={cardNumberKey} options={CARD_OPTIONS} />
                   <input type="text" placeholder="CPF" className="cpf" ref={inputCPF} />
@@ -189,7 +184,7 @@ const CheckoutForm = () => {
                 </div> */}
                 {/* </div> */}
 
-                <button type="submit" className="button" disabled={!stripe}>
+                <button onClick={PostPagamento} className="button" disabled={!stripe}>
                   Realizar Pagamento
                 </button>
               </form>

@@ -16,14 +16,15 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (query === "") {
-      setProducts([]);
-      return;
-    }
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const res = await api.get(`Produto/Name/${query}`);
+        let res;
+        if (query === "") {
+          res = await api.get(`/Produto`); // Busca todos os produtos
+        } else {
+          res = await api.get(`Produto/Name/${query}`);
+        }
         const data = await res.data;
         setProducts(data);
       } catch (error) {
@@ -32,8 +33,10 @@ const SearchPage = () => {
         setLoading(false);
       }
     };
+
     fetchProducts();
   }, [query]);
+
 
 
   async function PostPedido(produto: Product) {
