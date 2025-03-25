@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 
 type AuthState = {
-  user: User  | null;
+  user: User | null;
   login: (token: string) => void;
   logout: () => void;
   loadUserFromCookies: () => void;
@@ -16,27 +16,29 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
 
   login: (token: string) => {
-    document.cookie = `token=${token}; Path=/; Secure; SameSite=Strict; Max-Age=${60 * 60 * 8}`;
+    Cookies.set("token", token, {
+      path: "/",
+      secure: true,
+      sameSite: "strict",
+      expires: 1,
+    });
     const response = new NextResponse();
 
     response.cookies.set("token", token, {
-      httpOnly: true, 
-      sameSite: "strict", 
+      httpOnly: true,
+      sameSite: "strict",
       path: "/",
       maxAge: 60 * 60 * 8,
     });
-    try {
-      const decoded = jwtDecode<User>(token);
-      console.log("Usuário decodificado:", decoded);
-      set(() => ({ user: decoded }));
-    } catch (error) {
-      console.error("Erro ao decodificar token:", error);
-    }
-    
+
+    const decoded = jwtDecode<User>(token);
+    console.log("Usuário decodificado:", decoded);
+    set(() => ({ user: decoded }));
+
   },
 
   logout: () => {
-    document.cookie = "token=; Path=/; Max-Age=0"; 
+    Cookies.remove("token");
     set({ user: null });
   },
 

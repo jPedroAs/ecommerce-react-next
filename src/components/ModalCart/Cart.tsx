@@ -1,5 +1,6 @@
 import { Product } from '@/Types/ProdutoInterface';
 import '../index.css';
+import Cookies from "js-cookie";
 import { useEffect, useState } from 'react';
 import api from "../../services/api";
 import Swal from 'sweetalert2';
@@ -7,6 +8,7 @@ import { MdClose } from "react-icons/md";
 import { Pedido, Pedidos } from '@/Types/PedidoInterface';
 import { jwtDecode } from 'jwt-decode';
 import Link from "next/link";
+import { useAuthStore } from '@/store/authStore';
 interface modal {
     isOpen?: boolean,
     onClosed?: () => void
@@ -28,19 +30,10 @@ export default function Cart({ isOpen, onClosed }: modal) {
     useEffect(() => {
         let interval: NodeJS.Timeout;
         async function fetchProducts() {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                console.error("Token não encontrado.");
-                return;
-            }
-            let decodedToken: any;
-            try {
-                decodedToken = jwtDecode(token);
-            } catch (error) {
-                console.error("Erro ao decodificar token:", error);
-                return;
-            }
-            const responsePedido = await api.get(`/Pedido/${decodedToken.ID}`).then((responsePedido) => {
+            useAuthStore.getState().loadUserFromCookies();
+            const id_user = useAuthStore.getState().user?.ID;
+           
+            const responsePedido = await api.get(`/Pedido/${id_user}`).then((responsePedido) => {
                 if (Array.isArray(responsePedido.data.pedido)) {
                     const data = responsePedido.data.pedido;
                     setPedido(data);

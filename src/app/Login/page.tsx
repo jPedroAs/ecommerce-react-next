@@ -6,7 +6,6 @@ import { MdAlternateEmail } from "react-icons/md";
 import api from "../../services/api"
 import { useState, useRef } from "react";
 import Swal from 'sweetalert2';
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 
 

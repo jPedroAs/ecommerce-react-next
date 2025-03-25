@@ -7,19 +7,10 @@ import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import MainBar from '@/components/MainBar/MainBar';
 import Cookies from "js-cookie";
-import { redirect } from 'next/navigation';
-import { NextRequest } from 'next/server';
 import { useAuthStore } from '@/store/authStore';
 
-function Home() {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("token="))
-    ?.split("=")[1]
 
-  if (!token) {
-    redirect("/Login");
-  }
+function Home() {
 
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -40,18 +31,20 @@ function Home() {
   }, []);
 
   async function PostPedido(produto: Product) {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("Token não encontrado.");
-      return;
-    }
-    let decodedToken: any;
-    try {
-      decodedToken = jwtDecode(token);
-    } catch (error) {
-      console.error("Erro ao decodificar token:", error);
-      return;
-    }
+    useAuthStore.getState().loadUserFromCookies();
+    const id_user = useAuthStore.getState().user?.ID;
+    // const token = Cookies.get("token");
+    // if (!token) {
+    //   console.error("Token não encontrado.");
+    //   return;
+    // }
+    // let decodedToken: any;
+    // try {
+    //   decodedToken = jwtDecode(token);
+    // } catch (error) {
+    //   console.error("Erro ao decodificar token:", error);
+    //   return;
+    // }
 
     const data = {
       id_produto: produto.id,
@@ -59,7 +52,7 @@ function Home() {
       qbt_prod_unidade: 1,
       status_pedido: 1,
       id_category: 1,
-      id_aluno: decodedToken.ID
+      id_aluno: id_user
     }
     console.log(data)
     const response = await api.post("/Pedido", data)
@@ -111,10 +104,6 @@ function Home() {
         </div>
       </div>
     </div>
-    // <ProtectedRoute allowedRoles={["admin"]}>
-    //   <h1>Página do Admin</h1>
-    //   <p>Somente administradores podem acessar esta página.</p>
-    // </ProtectedRoute>
   );
 }
 

@@ -1,29 +1,15 @@
 "use client";
 import "../Produtos/index.css"
-import ModalProducts from "../../components/ModalProducts/ModalEditiProducts";
 import api from "../../services/api"
 import { useEffect, useState, useRef } from "react";
 import Swal from 'sweetalert2';
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import { Users } from "../../Types/UserInterface"
 import { jwtDecode } from 'jwt-decode';
-import { redirect, useRouter } from "next/navigation";
 import MainBar from "@/components/MainBar/MainBar";
 
 
 
 function User() {
-    const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("token="))
-        ?.split("=")[1]
-
-    if (!token) {
-        redirect("/Login");
-    }
-
-    const router = useRouter();
 
     const NomeRef = useRef<HTMLInputElement>(null);
     const EmailRef = useRef<HTMLInputElement>(null);
@@ -117,7 +103,7 @@ function User() {
             console.log(response)
             if (response.status == 200) {
                 localStorage.removeItem("token");
-                router.push("/Login");
+                window.location.href = "/Login";
             }
         } catch (error) {
             Swal.fire({

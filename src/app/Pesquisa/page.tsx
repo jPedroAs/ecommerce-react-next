@@ -6,17 +6,11 @@ import api from "../../services/api"
 import MainBar from "@/components/MainBar/MainBar";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
-import { redirect } from "next/navigation";
+import { useAuthStore } from "@/store/authStore";
+
 
 const SearchPage = () => {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("token="))
-    ?.split("=")[1]
 
-  if (!token) {
-    redirect("/Login");
-  }
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -43,18 +37,8 @@ const SearchPage = () => {
 
 
   async function PostPedido(produto: Product) {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("Token não encontrado.");
-      return;
-    }
-    let decodedToken: any;
-    try {
-      decodedToken = jwtDecode(token);
-    } catch (error) {
-      console.error("Erro ao decodificar token:", error);
-      return;
-    }
+    useAuthStore.getState().loadUserFromCookies();
+    const id_user = useAuthStore.getState().user?.ID;
 
     const data = {
       id_produto: produto.id,
@@ -62,7 +46,7 @@ const SearchPage = () => {
       qbt_prod_unidade: 1,
       status_pedido: 1,
       id_category: 1,
-      id_aluno: decodedToken.ID
+      id_aluno: id_user
     }
     console.log(data)
     const response = await api.post("/Pedido", data)

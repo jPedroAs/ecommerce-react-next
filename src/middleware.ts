@@ -2,9 +2,16 @@ import { NextResponse } from "next/server";
 import { jwtDecode } from "jwt-decode";
 import type { NextRequest } from "next/server";
 import { User } from "@/Types/User";
-import { useAuthStore } from "./store/authStore";
 
 export function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname === "/Login") {
+    return NextResponse.next();
+  }
+
+  if (req.nextUrl.pathname.startsWith("/_next/") || req.nextUrl.pathname.startsWith("/static/")) {
+    return NextResponse.next();
+  }
+
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
@@ -13,8 +20,8 @@ export function middleware(req: NextRequest) {
 
   const user: User = jwtDecode(token);
 
-  if (!user || user.role !== "admin") {
-    return NextResponse.redirect(new URL("/Login", req.url));
+  if (req.nextUrl.pathname.startsWith("/Products") && user.role !== "admin") {
+    return NextResponse.redirect(new URL("/Home", req.url));
   }
 
   return NextResponse.next();
@@ -22,5 +29,5 @@ export function middleware(req: NextRequest) {
 
 
 export const config = {
-  matcher: ["/Produtos/:path*"],
+  matcher: ["/:path*"],
 };
