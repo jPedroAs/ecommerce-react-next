@@ -6,14 +6,16 @@ import Swal from 'sweetalert2';
 import { Users } from "../../Types/UserInterface"
 import { jwtDecode } from 'jwt-decode';
 import MainBar from "@/components/MainBar/MainBar";
+import { useAuthStore } from "@/store/authStore";
 
 
 
 function User() {
+    useAuthStore.getState().loadUserFromCookies();
+    const id_user = useAuthStore.getState().user?.ID;
 
     const NomeRef = useRef<HTMLInputElement>(null);
     const EmailRef = useRef<HTMLInputElement>(null);
-    const SenhaRef = useRef<HTMLInputElement>(null);
     const RARef = useRef<HTMLInputElement>(null);
     const RoleRef = useRef<HTMLInputElement>(null);
     const CepRef = useRef<HTMLInputElement>(null);
@@ -25,25 +27,12 @@ function User() {
     const TelefoneRef = useRef<HTMLInputElement>(null);
     const [user, setUser] = useState<Users[]>([]);
 
-    function tokenId() {
-        let id = "";
-        const token = localStorage.getItem('token');
-        if (token) {
-            const decodedToken: { ID: string } = jwtDecode(token);
-            id = decodedToken.ID
-        }
-        return id
-    }
-
-    function EventFor(event: React.FormEvent) {
-        return event.preventDefault();
-    }
 
     useEffect(() => {
         async function fetchUser() {
             try {
 
-                const response = await api.get(`/Account/${tokenId()}`);
+                const response = await api.get(`/Account/${id_user}`);
                 const data = await response.data;
                 console.log(data)
                 setUser(Array.isArray(data) ? data : [data]);
@@ -73,7 +62,7 @@ function User() {
                 numero: NumeroRef.current?.value
             }
             console.log(body);
-            const response = await api.patch(`/Account/${tokenId()}`, body);
+            const response = await api.patch(`/Account/${id_user}`, body);
 
             Swal.fire({
                 text: "Atualização foi concluído com sucesso.",
@@ -99,7 +88,7 @@ function User() {
 
     async function handleDelete() {
         try {
-            const response = await api.delete(`/Account/${tokenId()}`);
+            const response = await api.delete(`/Account/${id_user}`);
             console.log(response)
             if (response.status == 200) {
                 localStorage.removeItem("token");
