@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import "./index.css";
-import MainBar from "@/components/MainBar/MainBar";
+import MainBar from "@/components/MainBar/page";
 import { Pedidos } from "@/Types/PedidoInterface";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";

@@ -1,5 +1,5 @@
 "use client"
-import MainBar from "@/components/MainBar/MainBar";
+import MainBar from "@/components/MainBar/page";
 import styles from "./Products.module.css";
 import { FaEdit, FaRegTrashAlt, FaSortAmountUpAlt } from "react-icons/fa";
 import { GrConfigure } from "react-icons/gr";

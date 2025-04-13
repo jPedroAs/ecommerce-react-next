@@ -1,0 +1,29 @@
+.search {
+    width: 990px;
+    height: 50px;
+    border-radius: 16px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.search input {
+    width: 900px;
+    height: 50px;
+    font-size: 18px;
+    color: #606060;
+    background: #fff;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.search .i {
+    width: 45px;
+    height: 45px;
+    color: #123D72;
+    cursor: pointer;
+}

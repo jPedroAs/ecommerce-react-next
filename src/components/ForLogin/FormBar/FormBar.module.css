@@ -1,0 +1,121 @@
+.container{
+    width: 54.22vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.6s ease-in-out;
+    background: none;
+    z-index: 0;
+}
+.content{
+    width: 516px;
+    height: 695px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    color: #123D72;
+    text-align: center;
+}
+.move{
+    transform: translateX(-45.78vw);
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 12px;
+    border-top-left-radius: 12px;
+}
+/*.move .content .form{
+    height: 153px;
+}*/
+.content h1{
+    font-size: 64px;
+    font-weight: 700;
+}
+.options{
+    width: 270px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 31px;
+}
+.options div{
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    border: 3px solid #123D72;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    width: 459.1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.form div{
+    width: 100%;
+    height: 66px;
+    background: #D9D9D9;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form div div{
+    width: 95px;
+    height: 100%;
+    font-size: 45px;
+    color: #606060;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form div input{
+    width: 364px;
+    height: 100%;
+    color: #606060;
+    font-size: 22px;
+    border: none;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    background: none;
+}
+.form div input[type="number"]::-webkit-outer-spin-button,
+.form div input[type="number"]::-webkit-inner-spin-button,
+.form div input[type="number"]:focus,
+.form div input[type="text"]::-webkit-outer-spin-button,
+.form div input[type="text"]::-webkit-inner-spin-button,
+.form div input[type="text"]:focus,
+.form div input[type="e-mail"]::-webkit-outer-spin-button,
+.form div input[type="e-mail"]::-webkit-inner-spin-button,
+.form div input[type="e-mail"]:focus,
+.form div input[type="password"]::-webkit-outer-spin-button,
+.form div input[type="password"]::-webkit-inner-spin-button,
+.form div input[type="password"]:focus {
+    -webkit-appearance: none;
+    outline: none;
+}
+.form button{
+    width: 223px;
+    height: 66px;
+    border: none;
+    background: #123D72;
+    cursor: pointer;
+    color: #FFF;
+    border-radius: 24px;
+    font-size: 22px;
+    font-weight: 700;
+}
+.content a{
+    width: 370px;
+    height: 47px;
+    font-size: 32px;
+    font-weight: lighter;
+    text-decoration: underline;
+    color: #123D72;
+}

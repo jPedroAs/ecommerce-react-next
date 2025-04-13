@@ -5,7 +5,7 @@ import api from "../../services/api"
 import { Product } from "../../Types/ProdutoInterface"
 import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
-import MainBar from '@/components/MainBar/MainBar';
+import MainBar from '@/components/MainBar/page';
 import NavBar from '@/components/NavBar';
 
 
