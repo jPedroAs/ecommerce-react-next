@@ -126,7 +126,7 @@ const CheckoutForm = () => {
           icon: "success",
           confirmButtonText: "OK",
           willClose: () => {
-            window.location.href = "/Home"; 
+            window.location.href = "/Catalog"; 
           }
         });
       })

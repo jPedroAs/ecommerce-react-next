@@ -21,7 +21,7 @@ export function middleware(req: NextRequest) {
   const user: User = jwtDecode(token);
 
   if (req.nextUrl.pathname.startsWith("/Products") && user.role !== "admin") {
-    return NextResponse.redirect(new URL("/Home", req.url));
+    return NextResponse.redirect(new URL("/Catalog", req.url));
   }
 
   return NextResponse.next();
