@@ -46,6 +46,7 @@ export default function HistoricoPage() {
               <th className="px-6 py-3 text-sm font-semibold text-gray-700">Tipo</th>
               <th className="px-6 py-3 text-sm font-semibold text-gray-700">Quantidade</th>
               <th className="px-6 py-3 text-sm font-semibold text-gray-700">Data</th>
+              <th className="px-6 py-3 text-sm font-semibold text-gray-700">Descrição</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -58,6 +59,7 @@ export default function HistoricoPage() {
                 <td className="px-6 py-4 text-sm text-gray-800">
                   {new Date(item.dataMovimentacao).toLocaleString()}
                 </td>
+                <td className="px-6 py-4 text-sm text-gray-800">{item.descricao}</td>
               </tr>
             ))}
           </tbody>
