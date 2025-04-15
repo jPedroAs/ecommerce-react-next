@@ -27,7 +27,7 @@ const Login = () => {
         btn: prevInfo.btn === "Sing In" ? "Sign Up" : "Sing In"
       }));
       setForm((prevForm) => ({
-        h1: prevForm.h1 === "Bem-vindo" ? "Criar " : "Bem-vindo",
+        h1: prevForm.h1 === "Bem-vindo" ? "Bem-vindo " : "Bem-vindo",
         btn: prevForm.btn === "Sign Up" ? "Sign In" : "Sign Up"
       }));
     }, 350);
