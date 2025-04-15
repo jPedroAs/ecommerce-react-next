@@ -121,9 +121,9 @@ const FormBar = (props: FormBlock) => {
         <div className={styles.content}>
           <h1>{props.h1}</h1>
           <div className={styles.options}>
-            <div><FaGoogle /></div>
+            {/* <div><FaGoogle /></div>
             <div><FaFacebook /></div>
-            <div><FaLinkedin /></div>
+            <div><FaLinkedin /></div> */}
           </div>
           {props.showAllFields ? (
             <form onSubmit={createUser} className={styles.form} style={{ height: props.formHeight }}>

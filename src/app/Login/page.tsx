@@ -9,12 +9,12 @@ const Login = () => {
   const [showAllFields, setShowAllFields] = useState(true);
   const [formHeight, setFormHeight] = useState("454.41px");
   const [info, setInfo] = useState({
-    h1: "Welcome Back!",
-    p: "To keep connected with us please login with your personal info",
-    btn: "Already have an account?"
+    h1: "Olá",
+    p: "Para seguir conectado à Unistore, faça login com seus dados.",
+    btn: "Sing In"
   });
   const [form, setForm] = useState({
-    h1: "Welcome",
+    h1: "Bem-vindo",
     btn: "Sign Up"
   });
 
@@ -22,12 +22,12 @@ const Login = () => {
     setMoveBlueBar((prevMove) => !prevMove);
     setTimeout(() => {
       setInfo((prevInfo) => ({
-        h1: prevInfo.h1 === "Welcome Back!" ? "Hello, Friend!" : "Welcome Back!",
-        p: prevInfo.p === "To keep connected with us please login with your personal info" ? "Enter your personal details and start your journey with us" : "To keep connected with us please login with your personal info",
-        btn: prevInfo.btn === "Already have an account?" ? "Sign Up" : "Already have an account?"
+        h1: prevInfo.h1 === "Bem-vindo!" ? "Olá!" : "Bem-vindo!",
+        p: prevInfo.p === "Para seguir conectado à Unistore, faça login com seus dados." ? "Crie sua conta na Unistore para acessar os nossos serviços." : "Para seguir conectado à Unistore, faça login com seus dados.",
+        btn: prevInfo.btn === "Sing In" ? "Sign Up" : "Sing In"
       }));
       setForm((prevForm) => ({
-        h1: prevForm.h1 === "Welcome" ? "Create Account" : "Welcome",
+        h1: prevForm.h1 === "Bem-vindo" ? "Criar " : "Bem-vindo",
         btn: prevForm.btn === "Sign Up" ? "Sign In" : "Sign Up"
       }));
     }, 350);
