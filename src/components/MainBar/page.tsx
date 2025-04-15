@@ -2,7 +2,7 @@
 import styles from "./MainBar.module.css";
 import Link from "next/link"
 import ModalCart from "../ModalCart/Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCodesandbox } from "react-icons/fi";
 import { useAuthStore } from "@/store/authStore";
 import { FaRegUser } from "react-icons/fa";
@@ -14,6 +14,13 @@ const MainBar = () => {
     const [navHeight, setNavHeight] = useState("80px");
     const [isVisible, setIsVisible] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [useRole, setUseRole] = useState<string>();
+
+    useEffect(() => {
+        useAuthStore.getState().loadUserFromCookies();
+        const role_user = useAuthStore.getState().user?.role;
+        setUseRole(role_user)
+    })
 
     function handlerModal() {
         setModalOpen(!modalOpen)
@@ -44,7 +51,7 @@ const MainBar = () => {
                 <nav className={styles.options}>
                     <ul>
                         <li><Link href="/Catalog" className={styles.a}>Home</Link></li>
-                        <li><Link href="/Products" className={styles.a}>Products</Link></li>
+                        { useRole == "admin" ? <li><Link href="/Products" className={styles.a}>Products</Link></li> : null}
                         <li><Link href="/Categories" className={styles.a}>Categories</Link></li>
                         <li><Link href="/Review" className={styles.a}>Review</Link></li>
                     </ul>
