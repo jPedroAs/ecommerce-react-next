@@ -104,7 +104,7 @@ const CheckoutForm = () => {
     }
     useAuthStore.getState().loadUserFromCookies();
     const id_user = useAuthStore.getState().user?.ID;
-    
+
     const nome = inputName.current?.value || "";
     const cpf = inputCPF.current?.value || "";
 
@@ -126,70 +126,85 @@ const CheckoutForm = () => {
           icon: "success",
           confirmButtonText: "OK",
           willClose: () => {
-            window.location.href = "/Catalog"; 
+            window.location.href = "/Catalog";
           }
         });
       })
-     
+
   };
 
 
   return (
     <div>
       <MainBar />
-      <div className='flex justify-center items-center flex-col bg-white min-h-screen'>
-        <div className=" flex justify-center items-center flex-col w-full bg-white rounded-lg shadow-md mb-6">
-          <h2 className="text-xl font-bold mb-4  text-black">Resumo do Pedido</h2>
-          <ul className="space-y-2">
+      <div className="flex  flex-col bg-gray-100 px-4 pt-10 min-h-screen">
+
+        <div className="w-full max-w-lg mx-auto bg-white rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Resumo do Pedido</h2>
+          <ul className="divide-y divide-gray-200 mb-4">
             {pedido.map((pedido) => (
-              <li key={pedido.pedidos.id_pedido} className="flex justify-between gap-4">
-                <span className="text-black">{pedido.produtos.nome}</span>
-                <span className="text-black">R${pedido.produtos.preco.toFixed(2)}</span>
+              <li key={pedido.pedidos.id_pedido} className="flex justify-between py-2">
+                <span className="text-gray-700">{pedido.produtos.nome}</span>
+                <span className="text-gray-800 font-medium">R${pedido.produtos.preco.toFixed(2)}</span>
               </li>
             ))}
           </ul>
-          <div className="mt-4">
-            <p className="font-semibold text-black">Total: R${totalAmount}</p>
+          <div className="text-right font-semibold text-gray-900">
+            Total: R${totalAmount}
           </div>
         </div>
 
-        <div className="container">
-          <h1 className="title">Escolha o tipo de pagamento</h1>
-          <div className="payment-type-selection">
-            <button onClick={() => handlePaymentTypeSelect("credit")} className="button">
+        <div className="w-full max-w-lg mx-auto bg-white rounded-xl shadow-lg p-6 mb-16">
+          <h1 className="text-xl font-semibold mb-4 text-gray-800 text-center">Escolha o tipo de pagamento</h1>
+          <div className="flex justify-center gap-4 mb-6">
+            <button
+              onClick={() => handlePaymentTypeSelect("credit")}
+              className={`px-4 py-2 rounded-lg border font-medium shadow-sm transition 
+          ${paymentType === "credit" ? "bg-blue-600 text-white" : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"}`}
+            >
               Cartão de Crédito
             </button>
-            <button onClick={() => handlePaymentTypeSelect("debit")} className="button">
+            <button
+              onClick={() => handlePaymentTypeSelect("debit")}
+              className={`px-4 py-2 rounded-lg border font-medium shadow-sm transition 
+          ${paymentType === "debit" ? "bg-blue-600 text-white" : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"}`}
+            >
               Cartão de Débito
             </button>
           </div>
 
           {paymentType && (
-            <div className="card">
-              <h2 className="payment-title">
-                Preencha os detalhes do seu {paymentType === "credit" ? "Cartão de Crédito" : "Cartão de Débito"}
+            <div>
+              <h2 className="text-lg font-semibold mb-4 text-gray-700 text-center">
+                Preencha os dados do seu {paymentType === "credit" ? "Cartão de Crédito" : "Cartão de Débito"}
               </h2>
-              <form className="form">
-                <div className="input-container">
+              <form className="space-y-4" onSubmit={PostPagamento}>
+                <div className="space-y-4">
                   <CardElement key={cardNumberKey} options={CARD_OPTIONS} />
-                  <input type="text" placeholder="CPF" className="cpf" ref={inputCPF} />
-                  <input type="text" placeholder="Nome" className="nome" ref={inputName} />
+                  <input
+                    type="text"
+                    placeholder="CPF"
+                    className="w-full px-4 py-2 border border-gray-300 bg-white text-black rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                    ref={inputCPF}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Nome"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:outline-none focus:ring focus:ring-blue-300"
+                    ref={inputName}
+                  />
                 </div>
 
-                {/* <div className="input-row"> */}
-
-                {/* <div className="input-container">
-                  <label>CVC</label>
-                  <CardCvcElement options={CARD_OPTIONS} />
-                </div> */}
-                {/* </div> */}
-
-                <button onClick={PostPagamento} className="button" disabled={!stripe}>
+                <button
+                  type="submit"
+                  className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition"
+                  disabled={!stripe}
+                >
                   Realizar Pagamento
                 </button>
               </form>
-              {error && <p className="error">{error}</p>}
-              {paymentMethod && <p className="success">PaymentMethod: {paymentMethod}</p>}
+              {error && <p className="text-red-600 mt-2 text-sm text-center">{error}</p>}
+              {paymentMethod && <p className="text-green-600 mt-2 text-sm text-center">Pagamento criado com sucesso</p>}
             </div>
           )}
         </div>
