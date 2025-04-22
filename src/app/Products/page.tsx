@@ -51,7 +51,11 @@ const Products = () => {
     }
     const fetchProducts = async () => {
         try {
-            const response = await api.get(`/Produto`);
+            useAuthStore.getState().loadUserFromCookies();
+            const curso = useAuthStore.getState().user?.curso;
+            const universidade = useAuthStore.getState().user?.universidade;
+            
+            const response = await api.get(`/Produto/Curso/${curso}/${universidade}`);
             const data = await response.data;
             console.log(data)
             setProducts(data);
