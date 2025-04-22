@@ -42,34 +42,6 @@ const Catalog = () => {
     fetchProducts();
   }, [query]);
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      useAuthStore.getState().loadUserFromCookies();
-      const userId = useAuthStore.getState().user?.ID;
-      console.log("User ID ao buscar favoritos:", userId);
-      if (userId) {
-        try {
-          const favoritesRes = await api.get(`/Favorito/${userId}`);
-          console.log("Resposta da API de favoritos:", favoritesRes.data);
-          if (favoritesRes.data && Array.isArray(favoritesRes.data)) {
-            const favIds = favoritesRes.data.map((fav: any) => String(fav.id_produto).trim());
-            setFavorites(favIds);
-            console.log("Estado favorites após a busca:", favIds);
-          } else {
-            setFavorites([]);
-          }
-        } catch (error) {
-          console.error("Erro ao buscar favoritos:", error);
-          setFavorites([]);
-        }
-      } else {
-        setFavorites([]);
-      }
-    };
-
-    fetchFavorites();
-  }, []);
-
   async function PostPedido(produto: Product) {
     useAuthStore.getState().loadUserFromCookies();
     const id_user = useAuthStore.getState().user?.ID;
