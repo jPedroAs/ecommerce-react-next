@@ -42,6 +42,19 @@ const Catalog = () => {
     fetchProducts();
   }, [query]);
 
+  useEffect(() => {
+    const fetchFavorito = async () => {
+        useAuthStore.getState().loadUserFromCookies();
+        const id = useAuthStore.getState().user?.ID;
+        await api.get(`Favorito/${id}`)
+        .then((responsse) => {
+          setFavorites(responsse.data.productIds);
+        })
+    };
+
+    fetchFavorito();
+  }, []);
+
   async function PostPedido(produto: Product) {
     useAuthStore.getState().loadUserFromCookies();
     const id_user = useAuthStore.getState().user?.ID;
@@ -109,7 +122,8 @@ const Catalog = () => {
             <>
               {products.map((product) => {
                 const productIdString = String(product.id).trim();
-                const isFavorite = favorites.some(favId => favId.trim() === productIdString);
+                // const isFavorite = favorites.some(favId => favId.trim() === productIdString);
+                const isFavorite = favorites.includes(String(product.id));
                 console.log(`Produto ID: ${productIdString}, Favoritos: ${favorites}, Está favoritado: ${isFavorite}`);
                 return (
                   <div key={product.id} className={styles.content}>
@@ -129,7 +143,7 @@ const Catalog = () => {
                       <button onClick={() => PostPedido(product)}>Comprar</button>
                       <AiFillStar
                         className={styles.i}
-                        fill={isFavorite ? "yellow" : "#D9D9D9"}
+                        fill={isFavorite ?  "yellow" : "#D9D9D9"}
                         onClick={() => toggleFavorite(String(product.id))}
                       />
                     </div>
