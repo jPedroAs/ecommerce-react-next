@@ -55,7 +55,14 @@
     display: flex;
     justify-content: space-between;
   }
-  .content button{
+  .btnbox{
+    width: 304px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .btnbox button{
     width: 223px;
     height: 37px;
     border-radius: 24px;
@@ -66,7 +73,11 @@
     border: none;
     transition: all 1s ease-out;
   }
-  .content button:hover {
+  .btnbox button:hover {
     background: #0A2C4E;
     transition: all 0.5s ease-out;
+  }
+  .i{
+    cursor: pointer;
+    font-size: 48px;
   }
