@@ -21,7 +21,7 @@ const Catalog = () => {
       useAuthStore.getState().loadUserFromCookies();
       const curso = useAuthStore.getState().user?.curso;
       const universidade = useAuthStore.getState().user?.universidade;
-      console.log(universidade)
+      console.log(curso)
       setLoading(true);
       try {
         let res;
