@@ -48,7 +48,7 @@ const MainBar = () => {
                         <li><Link href="/Catalog" className={styles.a}>Home</Link></li>
                         { useRole == "admin" ? <li><Link href="/Products" className={styles.a}>Products</Link></li> : null}
                         <li><Link href="/Categories" className={styles.a}>Categories</Link></li>
-                        <li><Link href="/Review" className={styles.a}>Review</Link></li>
+                        <li><Link href="/Avaliacao" className={styles.a}>Review</Link></li>
                     </ul>
                 </nav>
                 <nav className={styles.icons}>
