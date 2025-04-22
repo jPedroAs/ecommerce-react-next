@@ -18,13 +18,17 @@ const Catalog = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      useAuthStore.getState().loadUserFromCookies();
+      const curso = useAuthStore.getState().user?.curso;
+      const universidade = useAuthStore.getState().user?.universidade;
+      console.log(universidade)
       setLoading(true);
       try {
         let res;
         if (query === "") {
-          res = await api.get(`/Produto`);
+          res = await api.get(`/Produto/Curso/${curso}/${universidade}`);
         } else {
-          res = await api.get(`Produto/Name/${query}`);
+          res = await api.get(`Produto/Name/${query}/${curso}/${universidade}`);
         }
         const data = await res.data;
         setProducts(data);
