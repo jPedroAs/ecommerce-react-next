@@ -21,9 +21,7 @@ const Fav = () => {
 
             try {
                 const favoritesRes = await api.get(`/Favorito/${userId}`);
-                const favIds = Array.isArray(favoritesRes.data)
-                    ? favoritesRes.data.map((fav: any) => String(fav.id_produto).trim())
-                    : [];
+                const favIds = favoritesRes.data.productIds
 
                 setFavorites(favIds);
             } catch (error) {
@@ -44,9 +42,13 @@ const Fav = () => {
 
             setLoading(true);
             try {
+                console.log(favorites)
                 const promises = favorites.map((id) =>
                     api.get(`/Produtos/ID/${id}`).then((res) => res.data)
+
                 );
+
+              
 
                 const results = await Promise.all(promises);
                 const produtos = results.flat(); // ou apenas results, se o retorno for único
