@@ -68,7 +68,7 @@ const Fav = () => {
         if (!userId) return;
 
         try {
-            await api.delete(`/Favorito/${userId}/${productId}`);
+            await api.post(`/Favorito/${userId}/${productId}/remove`);
             setFavorites((prev) => prev.filter((id) => id !== productId));
         } catch (error) {
             console.error("Erro ao remover favorito:", error);
