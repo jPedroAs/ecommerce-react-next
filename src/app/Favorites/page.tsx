@@ -48,7 +48,7 @@ const Fav = () => {
 
                 );
 
-              
+
 
                 const results = await Promise.all(promises);
                 const produtos = results.flat(); // ou apenas results, se o retorno for único
@@ -78,35 +78,35 @@ const Fav = () => {
     async function PostPedido(produto: Product) {
         useAuthStore.getState().loadUserFromCookies();
         const id_user = useAuthStore.getState().user?.ID;
-    
+
         const data = {
-          id_produto: produto.id,
-          vl_prod_unidade: produto.preco,
-          qbt_prod_unidade: 1,
-          status_pedido: 1,
-          id_category: 1,
-          id_aluno: id_user
+            id_produto: produto.id,
+            vl_prod_unidade: produto.preco,
+            qbt_prod_unidade: 1,
+            status_pedido: 1,
+            id_category: 1,
+            id_aluno: id_user
         };
-    
+
         try {
-          await api.post("/Pedido", data);
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Adicionado no Carrinho",
-            showConfirmButton: false,
-            timer: 1500
-          });
+            await api.post("/Pedido", data);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Adicionado no Carrinho",
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch {
-          Swal.fire({
-            position: "top-end",
-            icon: "info",
-            title: "Item já foi adicionado no Carrinho",
-            showConfirmButton: false,
-            timer: 1500
-          });
+            Swal.fire({
+                position: "top-end",
+                icon: "info",
+                title: "Item já foi adicionado no Carrinho",
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
-      }
+    }
 
     return (
         <main className="min-h-screen bg-gray-100">
@@ -122,6 +122,17 @@ const Fav = () => {
                             products.map((product) => (
                                 <div key={product.id} className="border-b pb-4 last:border-b-0">
                                     <h3 className="text-lg font-bold">{product.nome}</h3>
+                                    <img
+                                        className="w-32 h-32 object-cover rounded-md mb-4"
+                                        src={
+                                            product?.img &&
+                                                typeof product.img === "string" &&
+                                                product.img.startsWith("data:image")
+                                                ? product.img
+                                                : `data:image/png;base64,${product?.img || ""}`
+                                        }
+                                        alt={product?.nome || "Produto sem nome"}
+                                    />
                                     <p className="text-gray-600">{product.descricao}</p>
                                     <div className="flex items-center justify-between mt-2">
                                         <span className="text-green-600 font-semibold">R$ {product.preco}</span>
