@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/authStore";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
 import { MdLogout } from "react-icons/md";
+import { AiFillStar } from "react-icons/ai";
 
 const MainBar = () => {
 
@@ -35,12 +36,6 @@ const MainBar = () => {
         window.location.href = "/Login";
     }
 
-    const toggleNavHeight = () => {
-        setNavHeight(navHeight === "80px" ? "120px" : "80px");
-        setIsVisible(!isVisible);
-    };
-
-
     return (
         <>
             <header className={styles.header}>
@@ -59,6 +54,7 @@ const MainBar = () => {
                 <nav className={styles.icons}>
                     <div><LuShoppingCart className={styles.i} onClick={handleCart} /></div>
                     <div><Link href="/User" className={styles.choissesicons}><FaRegUser className={styles.i} /></Link></div>
+                    <div><Link href="/Favorites" className={styles.choissesicons}><AiFillStar className={styles.i}/></Link></div>
                     <div onClick={Logout}><MdLogout className={styles.i} /></div>
                 </nav>
 
