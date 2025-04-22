@@ -15,13 +15,17 @@ const Catalog = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      useAuthStore.getState().loadUserFromCookies();
+      const curso = useAuthStore.getState().user?.curso;
+      const universidade = useAuthStore.getState().user?.universidade;
+      console.log(universidade)
       setLoading(true);
       try {
         let res;
         if (query === "") {
-          res = await api.get(`/Produto`);
+          res = await api.get(`/Produto/Curso/${curso}/${universidade}`);
         } else {
-          res = await api.get(`Produto/Name/${query}`);
+          res = await api.get(`Produto/Name/${query}/${curso}/${universidade}`);
         }
         const data = await res.data;
         setProducts(data);
@@ -87,7 +91,7 @@ const Catalog = () => {
                 <div key={product.id} className={styles.content}>
                   <img
                     src={
-                      product?.img && typeof product.img === "string" && product.img.startsWith("data:image")? product.img: `data:image/png;base64,${product?.img || ""}`} alt={product?.nome || "Produto sem nome"}/>
+                      product?.img && typeof product.img === "string" && product.img.startsWith("data:image") ? product.img : `data:image/png;base64,${product?.img || ""}`} alt={product?.nome || "Produto sem nome"} />
                   <div>
                     <h1>{product.nome}</h1>
                     <p>R$ {product.preco}</p>

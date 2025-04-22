@@ -4,6 +4,7 @@ import "../index.css"
 import { Product } from "../../Types/ProdutoInterface"
 import api from "../../services/api"
 import Swal from 'sweetalert2';
+import { useAuthStore } from "@/store/authStore";
 
 
 interface modal {
@@ -18,7 +19,7 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
     const descRef = useRef<HTMLInputElement>(null);
     const quatRef = useRef<HTMLInputElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
-    
+
 
     if (!isOpen) return null
 
@@ -26,6 +27,8 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
 
     async function PutProduto(id: string) {
         try {
+            useAuthStore.getState().loadUserFromCookies();
+            const curso = useAuthStore.getState().user?.curso;
             const file = imageRef.current?.files?.[0];
             let base64Image = "";
 
@@ -42,9 +45,9 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
                 Descricao: descRef.current?.value,
                 Preco: ValorRef.current?.value,
                 IMG: base64Image || data[0].img,
-                Categoria: "ADS",
+                Categoria: "outros",
                 Quantidade: quatRef.current?.value,
-                Curso: "ads",
+                Curso: curso,
                 Aval: 0,
                 QAval: 0
             }
@@ -52,12 +55,12 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
             await api.put(`/Produto/${id}`, body);
             isOpen = false
             Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Atualizado com Sucesso",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                position: "top-end",
+                icon: "success",
+                title: "Atualizado com Sucesso",
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch {
             Swal.fire({
                 text: "Ocorreu um Error.",

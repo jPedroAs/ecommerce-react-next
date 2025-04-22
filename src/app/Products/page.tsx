@@ -16,10 +16,11 @@ import { SiNamecheap } from "react-icons/si";
 import { LuDollarSign } from "react-icons/lu";
 import { GoFileDirectory } from "react-icons/go";
 import { MdOutlineDescription } from "react-icons/md";
+import { useAuthStore } from "@/store/authStore";
 
 
 const Products = () => {
-  
+
     const NomeRef = useRef<HTMLInputElement>(null);
     const ValorRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
@@ -28,7 +29,7 @@ const Products = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [quantidade , setQuantidade] = useState<number>(0);
+    const [quantidade, setQuantidade] = useState<number>(0);
     const [exibirComponenteInfo, setExibirComponenteInfo] = useState(false);
     const [exibirComponenteMove, setExibirComponenteMove] = useState(false);
     const [exibirComponenteEdit, setExibirComponenteEdit] = useState(false);
@@ -64,6 +65,9 @@ const Products = () => {
 
     async function PostProduto(event: React.FormEvent) {
         event.preventDefault();
+        useAuthStore.getState().loadUserFromCookies();
+        const curso = useAuthStore.getState().user?.curso;
+        const universidade = useAuthStore.getState().user?.universidade;
         try {
             const file = imageRef.current?.files?.[0];
             let base64Image = "";
@@ -81,9 +85,10 @@ const Products = () => {
                 Descricao: descRef.current?.value,
                 Preco: ValorRef.current?.value,
                 IMG: base64Image,
-                Categoria: "ADS",
+                Categoria: "outros",
                 Quantidade: quatRef.current?.value,
-                Curso: "ads",
+                Curso: curso,
+                Universidade: universidade,
                 Aval: 0,
                 QAval: 0
             }
@@ -114,11 +119,11 @@ const Products = () => {
 
     function handleEdit(productId: string) {
         const productToEdit = products.find((product) => product.id === productId);
-       
+
         if (productToEdit) {
             setSelectedProduct((prev) => productToEdit ? { ...prev, ...productToEdit } : prev);
             // setSelectedProduct(productToEdit);
-            
+
             setExibirComponenteEdit(true);
         }
     }
@@ -161,7 +166,7 @@ const Products = () => {
         }
     }
 
-    async function getEstoqueQTD(id: string){
+    async function getEstoqueQTD(id: string) {
         try {
 
             const response = await api.get(`/Estoques/${id}`);
@@ -245,7 +250,7 @@ const Products = () => {
                                                 <button onClick={() => handleDelete(product.id)} className={styles.btnChoices}>
                                                     <FaRegTrashAlt />
                                                 </button>
-                                                
+
                                                 <button onClick={() => handleInfo(product.id)} className={styles.btnChoices}>
                                                     <IoIosInformationCircleOutline />
                                                 </button>

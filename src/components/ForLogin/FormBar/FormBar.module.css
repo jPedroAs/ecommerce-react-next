@@ -85,6 +85,27 @@
     border-top-right-radius: 12px;
     background: none;
 }
+.form div select{
+    width: 364px;
+    height: 100%;
+    color: #252525;
+    font-size: 22px;
+    margin-left: 12px;
+    border: none;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    background: none;
+}
+.form div option{
+    width: 364px;
+    height: 100%;
+    color: #252525;
+    font-size: 22px;
+    border: none;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    background: none;
+}
 .form div input[type="number"]::-webkit-outer-spin-button,
 .form div input[type="number"]::-webkit-inner-spin-button,
 .form div input[type="number"]:focus,
