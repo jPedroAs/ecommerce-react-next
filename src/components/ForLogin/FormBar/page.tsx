@@ -178,7 +178,7 @@ const FormBar = (props: FormBlock) => {
                 <div><TbLockPassword /></div>
                 <input type="password" placeholder="Password" ref={inputLoginSenha} />
               </div>
-              <a href="#" onClick={ResetSenha}>Forgot your password?</a>
+              <a href="/ForgotPassword">Forgot your password?</a>
               <button onClick={ReqLogin}>{props.btn}</button>
             </form>
           )}
@@ -189,4 +189,3 @@ const FormBar = (props: FormBlock) => {
 };
 
 export default FormBar;
-

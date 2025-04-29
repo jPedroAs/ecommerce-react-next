@@ -41,6 +41,7 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
   }
   .content img{
     width: 304px;

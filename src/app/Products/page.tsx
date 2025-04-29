@@ -51,7 +51,11 @@ const Products = () => {
     }
     const fetchProducts = async () => {
         try {
-            const response = await api.get(`/Produto`);
+            useAuthStore.getState().loadUserFromCookies();
+            const curso = useAuthStore.getState().user?.Curso;
+            const universidade = useAuthStore.getState().user?.Universidade;
+            
+            const response = await api.get(`/Produto/Curso/${curso}/${universidade}`);
             const data = await response.data;
             console.log(data)
             setProducts(data);
@@ -66,8 +70,8 @@ const Products = () => {
     async function PostProduto(event: React.FormEvent) {
         event.preventDefault();
         useAuthStore.getState().loadUserFromCookies();
-        const curso = useAuthStore.getState().user?.curso;
-        const universidade = useAuthStore.getState().user?.universidade;
+        const curso = useAuthStore.getState().user?.Curso;
+        const universidade = useAuthStore.getState().user?.Universidade;
         try {
             const file = imageRef.current?.files?.[0];
             let base64Image = "";

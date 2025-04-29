@@ -28,7 +28,7 @@ export default function ModalProducts({ isOpen, onClosed, data }: modal) {
     async function PutProduto(id: string) {
         try {
             useAuthStore.getState().loadUserFromCookies();
-            const curso = useAuthStore.getState().user?.curso;
+            const curso = useAuthStore.getState().user?.Curso;
             const file = imageRef.current?.files?.[0];
             let base64Image = "";
 

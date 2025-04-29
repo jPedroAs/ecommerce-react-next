@@ -6,21 +6,25 @@ import SearchBox from "@/components/SearchBox/page";
 import api from "@/services/api";
 import { useAuthStore } from "@/store/authStore";
 import { Product } from "@/Types/Interface";
+import { useRouter } from "next/navigation"; // Importe o useRouter do 'next/navigation' (para Next.js 13 e superior) ou 'next/router' (para versões anteriores)
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
+import { useProdutoStore } from "@/store/produtoStore";
 
 const Catalog = () => {
+  const router = useRouter(); // Inicialize o roteador usando o hook
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const setProduto = useProdutoStore((state) => state.setProduto);
 
   useEffect(() => {
     const fetchProducts = async () => {
       useAuthStore.getState().loadUserFromCookies();
-      const curso = useAuthStore.getState().user?.curso;
-      const universidade = useAuthStore.getState().user?.universidade;
+      const curso = useAuthStore.getState().user?.Curso;
+      const universidade = useAuthStore.getState().user?.Universidade;
       console.log(curso)
       setLoading(true);
       try {
@@ -88,6 +92,11 @@ const Catalog = () => {
     }
   }
 
+  async function handleButtonClick(id: string) {
+    setProduto(id)
+    // Redireciona para a página de produtos com o ID do produto
+    router.push(`/ShowProd`);
+  }
   const toggleFavorite = async (productId: string) => {
     useAuthStore.getState().loadUserFromCookies();
     const userId = useAuthStore.getState().user?.ID;
@@ -126,7 +135,7 @@ const Catalog = () => {
                 const isFavorite = favorites.includes(String(product.id));
                 console.log(`Produto ID: ${productIdString}, Favoritos: ${favorites}, Está favoritado: ${isFavorite}`);
                 return (
-                  <div key={product.id} className={styles.content}>
+                  <div key={product.id} className={styles.content} onClick={() => handleButtonClick(product.id)}>
                     <img
                       src={
                         product?.img && typeof product.img === "string" && product.img.startsWith("data:image")

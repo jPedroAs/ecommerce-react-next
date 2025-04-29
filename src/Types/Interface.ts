@@ -43,7 +43,15 @@ export interface Popup {
     nome: string;
     preco: number;
     img: string;
+    categoria: string;
     descricao: string;
     quantidade: number;
+    qAval: string;
     onClose: () => void;
+}
+
+export interface ResetPassword {
+  Email: string;
+  ResetCode: string;
+  NewPassword: string;
 }
