@@ -31,80 +31,67 @@ const FormBar = (props: FormBlock) => {
       ra: inputLoginRa.current?.value,
       senha: inputLoginSenha.current?.value
     }
-    try {
-      const response = await api.post("/Login", body);
-      if (response.status === 200) {
+
+    await api.post("/Login", body)
+      .then((response) => {
         const data = response.data;
         logout();
         login(data.token);
         window.location.href = "/Catalog";
-      } else {
-        Swal.fire({
-          text: "Credenciais inválidas",
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      Swal.fire({
-        text: "Erro ao fazer login.",
-        icon: "error",
-      });
-    }
+      })
+      .catch((error) => {
+        if (error.status == 401) {
+          Swal.fire({
+            text: `${error.response.data.message}`,
+            icon: "error",
+          });
+        }
+        else if (error.status == 500) {
+          Swal.fire({
+            text: `Error interno. Tente novamente.`,
+            icon: "error",
+          });
+        }
+      })
   }
 
   async function createUser(event: React.FormEvent) {
     event.preventDefault();
     const selectElement = inputUni.current;
     let nomeFaculdade = '';
-  
+
     if (selectElement) {
       nomeFaculdade = selectElement.options[selectElement.selectedIndex].text;
     }
-    
-    try {
-      const body = {
-        name: inputName.current?.value,
-        email: inputEmail.current?.value,
-        senha: inputSenha.current?.value,
-        ra: inputRa.current?.value,
-        Uni: nomeFaculdade,
-      };
-      console.log(body)
 
-      const response = await api.post("/Cadastro", body);
-      console.log(response.status)
-      console.log(response.data.status)
+    const body = {
+      name: inputName.current?.value,
+      email: inputEmail.current?.value,
+      senha: inputSenha.current?.value,
+      ra: inputRa.current?.value,
+      Uni: nomeFaculdade,
+    };
+    console.log(body)
 
-      if (response.status == 200) {
-        Swal.fire({
-          text: "Seu cadastro foi concluído com sucesso.",
-          icon: "success",
-        });
-      }
-      else if (response.status == 400) {
-        Swal.fire({
-          text: "Usuário já registrado",
-          icon: "error",
-        });
-
-        if (inputName.current) inputName.current.value = "";
-        if (inputRa.current) inputRa.current.value = "";
-        if (inputEmail.current) inputEmail.current.value = "";
-        if (inputSenha.current) inputSenha.current.value = "";
-        if (inputUni.current) inputUni.current.value = "";
-      }
-      else {
-        Swal.fire({
-          text: "Usuário já registrado.",
-          icon: "error",
-        });
-      }
-    } catch (error) {
+    await api.post("/Cadastro", body).then(() => {
       Swal.fire({
-        text: "Ocorreu um erro ao cadastrar o usuário.",
+        text: "Seu cadastro foi concluído com sucesso.",
+        icon: "success",
+      });
+
+      if (inputName.current) inputName.current.value = "";
+      if (inputRa.current) inputRa.current.value = "";
+      if (inputEmail.current) inputEmail.current.value = "";
+      if (inputSenha.current) inputSenha.current.value = "";
+      if (inputUni.current) inputUni.current.value = "";
+
+    }).catch((error) => {
+      console.log(error)
+      Swal.fire({
+        text: `${error.response.data.message}`,
         icon: "error",
       });
-    }
+    });
   }
 
   function ResetSenha(event: React.FormEvent) {
@@ -136,10 +123,10 @@ const FormBar = (props: FormBlock) => {
         console.error('Erro ao buscar universidades:', error);
       }
     };
-  
+
     fetchUniversidades();
   }, []);
-  
+
 
   return (
     <>
