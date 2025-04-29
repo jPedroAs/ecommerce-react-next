@@ -23,9 +23,9 @@ const ForgotPassword = (props: ResetPassword) => {
         if (clickCount === 0) {
             setButton("Confirm Code");
             await PostSendEmail();
-            setInputHeight(153); // Prepare altura para o campo de código
         } else if (clickCount === 1) {
             setShowInputs(true);
+            setInputHeight(153); // Prepare altura para o campo de código
         }
     };
 

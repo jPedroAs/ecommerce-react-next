@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
 const PagHome = () =>{
-  redirect('/Home'); 
+  redirect('/Catalog'); 
 }
 export default PagHome;

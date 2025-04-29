@@ -2,18 +2,26 @@
 import styles from "./MainBar.module.css";
 import Link from "next/link"
 import ModalCart from "../ModalCart/Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCodesandbox } from "react-icons/fi";
 import { useAuthStore } from "@/store/authStore";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
 import { MdLogout } from "react-icons/md";
+import { AiFillStar } from "react-icons/ai";
 
 const MainBar = () => {
 
     const [navHeight, setNavHeight] = useState("80px");
     const [isVisible, setIsVisible] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [useRole, setUseRole] = useState<string>();
+
+    useEffect(() => {
+        useAuthStore.getState().loadUserFromCookies();
+        const role_user = useAuthStore.getState().user?.role;
+        setUseRole(role_user)
+    })
 
     function handlerModal() {
         setModalOpen(!modalOpen)
@@ -28,12 +36,6 @@ const MainBar = () => {
         window.location.href = "/Login";
     }
 
-    const toggleNavHeight = () => {
-        setNavHeight(navHeight === "80px" ? "120px" : "80px");
-        setIsVisible(!isVisible);
-    };
-
-
     return (
         <>
             <header className={styles.header}>
@@ -44,14 +46,15 @@ const MainBar = () => {
                 <nav className={styles.options}>
                     <ul>
                         <li><Link href="/Catalog" className={styles.a}>Home</Link></li>
-                        <li><Link href="/Products" className={styles.a}>Products</Link></li>
+                        { useRole == "admin" ? <li><Link href="/Products" className={styles.a}>Products</Link></li> : null}
                         <li><Link href="/Categories" className={styles.a}>Categories</Link></li>
-                        <li><Link href="/Review" className={styles.a}>Review</Link></li>
+                        <li><Link href="/Avaliacao" className={styles.a}>Review</Link></li>
                     </ul>
                 </nav>
                 <nav className={styles.icons}>
                     <div><LuShoppingCart className={styles.i} onClick={handleCart} /></div>
                     <div><Link href="/User" className={styles.choissesicons}><FaRegUser className={styles.i} /></Link></div>
+                    <div><Link href="/Favorites" className={styles.choissesicons}><AiFillStar className={styles.i}/></Link></div>
                     <div onClick={Logout}><MdLogout className={styles.i} /></div>
                 </nav>
 

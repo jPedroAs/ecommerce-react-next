@@ -30,7 +30,7 @@ export function middleware(req: NextRequest) {
 
   // Se a rota começar com /Products e o usuário não for um admin, redireciona para /Home
   if (req.nextUrl.pathname.startsWith("/Products") && user.role !== "admin") {
-    return NextResponse.redirect(new URL("/Home", req.url));
+    return NextResponse.redirect(new URL("/Catalog", req.url));
   }
 
   // Em outros casos (com token válido), permite o acesso

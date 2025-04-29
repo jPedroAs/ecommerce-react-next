@@ -4,7 +4,9 @@ export interface Users{
     name: string,   
     email: string,    
     senha: string,   
-    ra: string,       
+    ra: string,  
+    curso: string     
+    universidade: string     
     telefone: string, 
     role: string,     
     cep: string,      
