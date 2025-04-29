@@ -6,7 +6,7 @@ import { ResetPassword } from "@/Types/Interface";
 import api from "@/services/api";
 import Swal from "sweetalert2";
 
-const ForgotPassword = (props: ResetPassword) => {
+const ForgotPassword = () => {
     const inputNewPassword = useRef<HTMLInputElement>(null);
     const inputConfirmPassword = useRef<HTMLInputElement>(null);
 
