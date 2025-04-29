@@ -5,6 +5,7 @@ import SearchBox from "@/components/SearchBox/page";
 import api from "@/services/api";
 import { useAuthStore } from "@/store/authStore";
 import { Product } from "@/Types/Interface";
+import router from "next/router";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -70,6 +71,11 @@ const Catalog = () => {
     console.log(response)
   }
 
+  async function handleButtonClick(id: string) {
+    // Redireciona para a página de produtos com o ID do produto
+    router.push(`/ShowProd?id=${id}`);
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -84,7 +90,7 @@ const Catalog = () => {
           ) : (
             <>
               {products.map((product) => (
-                <div key={product.id} className={styles.content}>
+                <div key={product.id} className={styles.content} onClick={() => handleButtonClick(product.id)}>
                   <img
                     src={
                       product?.img && typeof product.img === "string" && product.img.startsWith("data:image")? product.img: `data:image/png;base64,${product?.img || ""}`} alt={product?.nome || "Produto sem nome"}/>

@@ -96,25 +96,6 @@ const FormBar = (props: FormBlock) => {
     }
   }
 
-  function ResetSenha(event: React.FormEvent) {
-    event.preventDefault();
-    Swal.fire({
-      title: "Informe o E-mail registrado",
-      input: "text",
-      inputAttributes: {
-        autocapitalize: "off"
-      },
-      showCancelButton: true,
-      confirmButtonText: "Enviar",
-      showLoaderOnConfirm: true,
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then(() => {
-      Swal.fire({
-        title: `E-mail Enviado`
-      });
-    })
-  }
-
   return (
     <>
       <div className={`${styles.container} ${props.move ? styles.move : ""}`}>
@@ -155,7 +136,7 @@ const FormBar = (props: FormBlock) => {
                 <div><TbLockPassword /></div>
                 <input type="password" placeholder="Password" ref={inputLoginSenha}/>
               </div>
-              <a href="#" onClick={ResetSenha}>Forgot your password?</a>
+              <a href="/ForgotPassword">Forgot your password?</a>
               <button onClick={ReqLogin}>{props.btn}</button>
             </form>
           )}
