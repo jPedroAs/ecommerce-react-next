@@ -19,8 +19,8 @@ const Catalog = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       useAuthStore.getState().loadUserFromCookies();
-      const curso = useAuthStore.getState().user?.curso;
-      const universidade = useAuthStore.getState().user?.universidade;
+      const curso = useAuthStore.getState().user?.Curso;
+      const universidade = useAuthStore.getState().user?.Universidade;
       console.log(curso)
       setLoading(true);
       try {
