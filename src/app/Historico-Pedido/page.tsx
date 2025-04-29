@@ -16,7 +16,7 @@ const HistoricoCompras = () => {
             const id = useAuthStore.getState().user?.ID;
             console.log(id)
             try {
-                const response = await api.get(`/Pedido-transacao/67d05af3901c88e55cdcfbbe`);
+                const response = await api.get(`/Pedido-transacao/${id}`);
                 console.log(response.data.pedido)
                 setPedidos(response.data.pedido);
                 setLoading(false)
@@ -57,7 +57,8 @@ const HistoricoCompras = () => {
                                     />
                                     <div className="flex flex-col">
                                         <span className="text-sm font-medium text-gray-700">{pedido.produtos.nome}</span>
-                                        <span className="text-sm text-gray-500">R$ {pedido.produtos.preco.toFixed(2)}</span>
+                                        <span className="text-sm text-gray-500">R$ {pedido.pedidos.vl_prod_unidade.toFixed(2)}</span>
+                                        <span className="text-sm text-gray-500">Quantidade Comprada {pedido.pedidos.qnt_prod_unidade}</span>
                                     </div>
                                 </div>
                             </div>
