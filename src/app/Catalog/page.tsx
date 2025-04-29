@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"; // Importe o useRouter do 'next/nav
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
+import { useProdutoStore } from "@/store/produtoStore";
 
 const Catalog = () => {
   const router = useRouter(); // Inicialize o roteador usando o hook
@@ -17,6 +18,7 @@ const Catalog = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const setProduto = useProdutoStore((state) => state.setProduto);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -91,8 +93,9 @@ const Catalog = () => {
   }
 
   async function handleButtonClick(id: string) {
+    setProduto(id)
     // Redireciona para a página de produtos com o ID do produto
-    router.push(`/ShowProd?id=${id}`);
+    router.push(`/ShowProd`);
   }
   const toggleFavorite = async (productId: string) => {
     useAuthStore.getState().loadUserFromCookies();
