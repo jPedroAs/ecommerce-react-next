@@ -135,7 +135,7 @@ const Catalog = () => {
                 const isFavorite = favorites.includes(String(product.id));
                 console.log(`Produto ID: ${productIdString}, Favoritos: ${favorites}, Está favoritado: ${isFavorite}`);
                 return (
-                  <div key={product.id} className={styles.content} onClick={() => handleButtonClick(product.id)}>
+                  <div key={product.id} className={styles.content}>
                     <img
                       src={
                         product?.img && typeof product.img === "string" && product.img.startsWith("data:image")
@@ -143,7 +143,7 @@ const Catalog = () => {
                           : `data:image/png;base64,${product?.img || ""}`
                       }
                       alt={product?.nome || "Produto sem nome"}
-                    />
+                    onClick={() => handleButtonClick(product.id)}/>
                     <div>
                       <h1>{product.nome}</h1>
                       <p>R$ {product.preco}</p>
