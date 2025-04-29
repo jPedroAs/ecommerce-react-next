@@ -7,7 +7,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { useAuthStore } from "@/store/authStore";
 import api from "@/services/api";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 const FormBar = (props: FormBlock) => {
@@ -18,10 +18,12 @@ const FormBar = (props: FormBlock) => {
   const inputRa = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
   const inputSenha = useRef<HTMLInputElement>(null);
+  const inputUni = useRef<HTMLSelectElement>(null);
 
 
   const inputLoginRa = useRef<HTMLInputElement>(null);
   const inputLoginSenha = useRef<HTMLInputElement>(null);
+  const [universidades, setUniversidades] = useState([]);
 
   async function ReqLogin(event: React.FormEvent) {
     event.preventDefault();
@@ -52,12 +54,20 @@ const FormBar = (props: FormBlock) => {
 
   async function createUser(event: React.FormEvent) {
     event.preventDefault();
+    const selectElement = inputUni.current;
+    let nomeFaculdade = '';
+  
+    if (selectElement) {
+      nomeFaculdade = selectElement.options[selectElement.selectedIndex].text;
+    }
+    
     try {
       const body = {
         name: inputName.current?.value,
         email: inputEmail.current?.value,
         senha: inputSenha.current?.value,
-        ra: inputRa.current?.value
+        ra: inputRa.current?.value,
+        Uni: nomeFaculdade,
       };
       console.log(body)
 
@@ -81,6 +91,7 @@ const FormBar = (props: FormBlock) => {
         if (inputRa.current) inputRa.current.value = "";
         if (inputEmail.current) inputEmail.current.value = "";
         if (inputSenha.current) inputSenha.current.value = "";
+        if (inputUni.current) inputUni.current.value = "";
       }
       else {
         Swal.fire({
@@ -96,33 +107,77 @@ const FormBar = (props: FormBlock) => {
     }
   }
 
+  function ResetSenha(event: React.FormEvent) {
+    event.preventDefault();
+    Swal.fire({
+      title: "Informe o E-mail registrado",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off"
+      },
+      showCancelButton: true,
+      confirmButtonText: "Enviar",
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then(() => {
+      Swal.fire({
+        title: `E-mail Enviado`
+      });
+    })
+  }
+
+  useEffect(() => {
+    const fetchUniversidades = async () => {
+      try {
+        const response = await api.get('/Universidades');
+        const data = response.data;
+        setUniversidades(data);
+      } catch (error) {
+        console.error('Erro ao buscar universidades:', error);
+      }
+    };
+  
+    fetchUniversidades();
+  }, []);
+  
+
   return (
     <>
       <div className={`${styles.container} ${props.move ? styles.move : ""}`}>
         <div className={styles.content}>
           <h1>{props.h1}</h1>
           <div className={styles.options}>
-            <div><FaGoogle /></div>
+            {/* <div><FaGoogle /></div>
             <div><FaFacebook /></div>
-            <div><FaLinkedin /></div>
+            <div><FaLinkedin /></div> */}
           </div>
           {props.showAllFields ? (
             <form onSubmit={createUser} className={styles.form} style={{ height: props.formHeight }}>
               <div>
                 <div><CiUser /></div>
-                <input type="text" placeholder="Nome" ref={inputName}/>
+                <input type="text" placeholder="Nome" ref={inputName} />
               </div>
               <div>
                 <div><FaRegIdCard /></div>
-                <input type="number" placeholder="RA" ref={inputRa}/>
+                <input type="number" placeholder="RA" ref={inputRa} />
               </div>
               <div>
                 <div><MdOutlineEmail /></div>
-                <input type="e-mail" placeholder="E-mail" ref={inputEmail}/>
+                <input type="e-mail" placeholder="E-mail" ref={inputEmail} />
               </div>
               <div>
                 <div><TbLockPassword /></div>
-                <input type="password" placeholder="Password" ref={inputSenha}/>
+                <input type="password" placeholder="Password" ref={inputSenha} />
+              </div>
+              <div>
+                <select defaultValue="" ref={inputUni}>
+                  <option value="" disabled>Selecione a faculdade</option>
+                  {universidades.map((uni: any) => (
+                    <option key={uni.id} value={uni.id}>
+                      {uni.nome_uni}
+                    </option>
+                  ))}
+                </select>
               </div>
               <button onClick={createUser}>{props.btn}</button>
             </form>
@@ -130,11 +185,11 @@ const FormBar = (props: FormBlock) => {
             <form onSubmit={ReqLogin} className={styles.form} style={{ height: props.formHeight }}>
               <div>
                 <div><FaRegIdCard /></div>
-                <input type="number" placeholder="RA" ref={inputLoginRa}/>
+                <input type="number" placeholder="RA" ref={inputLoginRa} />
               </div>
               <div>
                 <div><TbLockPassword /></div>
-                <input type="password" placeholder="Password" ref={inputLoginSenha}/>
+                <input type="password" placeholder="Password" ref={inputLoginSenha} />
               </div>
               <a href="/ForgotPassword">Forgot your password?</a>
               <button onClick={ReqLogin}>{props.btn}</button>
@@ -147,4 +202,3 @@ const FormBar = (props: FormBlock) => {
 };
 
 export default FormBar;
-

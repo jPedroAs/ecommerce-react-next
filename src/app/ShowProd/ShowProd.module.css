@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #FFF;
 }
 .container{
     width: 1462px;
@@ -96,7 +97,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: column;
 }
 .info div{
@@ -115,6 +116,7 @@
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
     text-align: center;
+    background: inherit;
 }
 .info div div{
     width: 59px;
@@ -141,7 +143,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: column;
 }
 .btn button{

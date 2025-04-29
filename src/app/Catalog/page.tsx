@@ -5,11 +5,12 @@ import SearchBox from "@/components/SearchBox/page";
 import api from "@/services/api";
 import { useAuthStore } from "@/store/authStore";
 import { Product } from "@/Types/Interface";
-import router from "next/router";
+import { useRouter } from "next/navigation"; // Importe o useRouter do 'next/navigation' (para Next.js 13 e superior) ou 'next/router' (para versões anteriores)
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const Catalog = () => {
+  const router = useRouter(); // Inicialize o roteador usando o hook
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);

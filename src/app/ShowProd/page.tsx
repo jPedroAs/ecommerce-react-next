@@ -3,15 +3,19 @@ import MainBar from "@/components/MainBar/page";
 import styles from "./ShowProd.module.css";
 import api from "@/services/api";
 import { Product } from "@/Types/Interface";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from 'next/navigation'; // Importa useSearchParams
 import { FaRegStar } from "react-icons/fa";
 import { IoAdd } from "react-icons/io5";
 import { SlSizeActual } from "react-icons/sl";
+import { useAuthStore } from "@/store/authStore";
+import Swal from "sweetalert2";
 
 const ShowProd = () => {
   const searchParams = useSearchParams(); // Obtém os parâmetros da URL
   const id = searchParams.get('id'); // Pega o ID da query string
+  const qtdProd = useRef<HTMLInputElement>(null);
+  
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<Product | null>(null); // Altera para um objeto do tipo Product ou null
   const [quantity, setQuantity] = useState(0); // Estado para armazenar a quantidade do estoque
@@ -53,6 +57,43 @@ const ShowProd = () => {
     }
   }, [id]);
 
+  async function PostPedido(produto: Product) {
+    useAuthStore.getState().loadUserFromCookies();
+    const id_user = useAuthStore.getState().user?.ID;
+    const QuantiProd = qtdProd.current?.value;
+
+
+    const data = {
+      id_produto: produto.id,
+      vl_prod_unidade: produto.preco,
+      qbt_prod_unidade: QuantiProd,
+      status_pedido: 1,
+      id_category: 1,
+      id_aluno: id_user
+    }
+    console.log(data)
+    const response = await api.post("/Pedido", data)
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Adicionado no Carrinho",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "info",
+          title: "Item já foi adicionado no Carrinho",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+    console.log(response)
+  }
+
   return (
     <>
       <MainBar />
@@ -81,18 +122,18 @@ const ShowProd = () => {
                 <p>{product.descricao}</p>
                 <div className={styles.buy}>
                   <div className={styles.info}>
-                    <div>
+                    {/*<div>
                       <input type="text" placeholder="Selecione o Tamanho" />
                       <div><SlSizeActual className={styles.i} /></div>
-                    </div>
+                    </div>*/}
                     <div>
-                      <input type="text" placeholder="Selecione a Quantidade" />
+                      <input type="text" placeholder="Selecione a Quantidade" ref={qtdProd}/>
                       <div><IoAdd className={styles.i} /></div>
                     </div>
                   </div>
                   <div className={styles.btn}>
-                    <button>Adicionar ao Carinho</button>
-                    <button>Comprar Agora</button>
+                    <button onClick={() => PostPedido(product)}>Adicionar ao Carinho</button>
+                    {/*<button>Comprar Agora</button>*/}
                   </div>
                 </div>
               </div>
