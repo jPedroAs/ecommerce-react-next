@@ -2,7 +2,6 @@
 import { useRef, useState } from "react";
 import { FaRegIdCard } from "react-icons/fa";
 import styles from "./ForgotPassword.module.css";
-import { ResetPassword } from "@/Types/Interface";
 import api from "@/services/api";
 import Swal from "sweetalert2";
 
@@ -10,7 +9,7 @@ const ForgotPassword = () => {
     const inputNewPassword = useRef<HTMLInputElement>(null);
     const inputConfirmPassword = useRef<HTMLInputElement>(null);
 
-    const [email, setEmail] = useState("");
+    const [ra, setRA] = useState("");
     const [code, setCode] = useState("");
     const [inputHeight, setInputHeight] = useState(66);
     const [clickCount, setClickCount] = useState(0);
@@ -18,22 +17,30 @@ const ForgotPassword = () => {
     const [button, setButton] = useState("Send E-mail");
 
     const handleButtonClick = async () => {
-        setClickCount(prevCount => prevCount + 1);
-
         if (clickCount === 0) {
             setButton("Confirm Code");
             await PostSendEmail();
+            setClickCount(1);
         } else if (clickCount === 1) {
-            setShowInputs(true);
-            setInputHeight(153); // Prepare altura para o campo de código
+            const isValid = await CheckToken();
+
+            if (isValid) {
+                setShowInputs(true);
+                setInputHeight(153);
+            } else {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Token inválido",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         }
     };
 
     async function PostSendEmail() {
-        const data = {
-            email: email
-        };
-
+        const data = { ra };
         console.log("Dados enviados para PostSendEmail:", data);
 
         try {
@@ -58,6 +65,17 @@ const ForgotPassword = () => {
         }
     }
 
+    async function CheckToken(): Promise<boolean> {
+        try {
+            const response = await api.get(`/Token-Senha/${code}`);
+            console.log("Resposta da verificação do token:", response.data);
+            return response.data === true; // Ajuste conforme a resposta real da sua API
+        } catch (error) {
+            console.error("Erro ao verificar o token:", error);
+            return false;
+        }
+    }
+
     async function PatchSendCode() {
         const newPassword = inputNewPassword.current?.value;
         const confirmPassword = inputConfirmPassword.current?.value;
@@ -74,12 +92,11 @@ const ForgotPassword = () => {
         }
 
         const data = {
-            email: email,
-            ResetCode: code,
-            NewPassword: newPassword
+            token: code,
+            novaSenha: newPassword
         };
 
-        console.log("Dados enviados para PostSendCode:", data);
+        console.log("Dados enviados para PatchSendCode:", data);
         try {
             const response = await api.patch("/Senha-Nova", data);
             Swal.fire({
@@ -103,22 +120,24 @@ const ForgotPassword = () => {
     }
 
     return (
-        <>
-            <main className={styles.main}>
-                <div className={styles.container}>
-                    <div className={styles.content}>
-                        <h1>Forgot Password</h1>
-                        <div className={styles.input} style={{ height: `${inputHeight}px` }}>
-                            <div className={styles.casing} style={{ display: clickCount === 0 && !showInputs ? 'flex' : 'none' }}>
+        <main className={styles.main}>
+            <div className={styles.container}>
+                <div className={styles.content}>
+                    <h1>Forgot Password</h1>
+                    <div className={styles.input} style={{ height: `${inputHeight}px` }}>
+                        {clickCount === 0 && !showInputs && (
+                            <div className={styles.casing}>
                                 <div><FaRegIdCard /></div>
                                 <input
-                                    type="email"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="text"
+                                    placeholder="RA"
+                                    value={ra}
+                                    onChange={(e) => setRA(e.target.value)}
                                 />
                             </div>
-                            <div className={styles.casing} style={{ display: clickCount === 1 && !showInputs ? 'flex' : 'none' }}>
+                        )}
+                        {clickCount === 1 && !showInputs && (
+                            <div className={styles.casing}>
                                 <div><FaRegIdCard /></div>
                                 <input
                                     type="text"
@@ -127,34 +146,34 @@ const ForgotPassword = () => {
                                     onChange={(e) => setCode(e.target.value)}
                                 />
                             </div>
-                            {showInputs && (
-                                <>
-                                    <div className={styles.casing}>
-                                        <div><FaRegIdCard /></div>
-                                        <input type="password" placeholder="New Password" ref={inputNewPassword} />
-                                    </div>
-                                    <div className={styles.casing}>
-                                        <div><FaRegIdCard /></div>
-                                        <input type="password" placeholder="Confirm Password" ref={inputConfirmPassword} />
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                        {!showInputs ? (
+                        )}
+                        {showInputs && (
                             <>
-                                <p>Preencha o campo acima e nós enviaremos um código para o seu e-mail.</p>
-                                <button onClick={handleButtonClick}>{button}</button>
-                            </>
-                        ) : (
-                            <>
-                                <p>Preencha os campos acima para definir sua nova senha.</p>
-                                <button onClick={PatchSendCode}>Redefinir Senha</button>
+                                <div className={styles.casing}>
+                                    <div><FaRegIdCard /></div>
+                                    <input type="password" placeholder="New Password" ref={inputNewPassword} />
+                                </div>
+                                <div className={styles.casing}>
+                                    <div><FaRegIdCard /></div>
+                                    <input type="password" placeholder="Confirm Password" ref={inputConfirmPassword} />
+                                </div>
                             </>
                         )}
                     </div>
+                    {!showInputs ? (
+                        <>
+                            <p>Preencha o campo acima e nós enviaremos um código para o seu e-mail.</p>
+                            <button onClick={handleButtonClick}>{button}</button>
+                        </>
+                    ) : (
+                        <>
+                            <p>Preencha os campos acima para definir sua nova senha.</p>
+                            <button onClick={PatchSendCode}>Redefinir Senha</button>
+                        </>
+                    )}
                 </div>
-            </main>
-        </>
+            </div>
+        </main>
     );
 };
 
