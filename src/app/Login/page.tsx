@@ -11,7 +11,7 @@ const Login = () => {
   const [info, setInfo] = useState({
     h1: "Olá",
     p: "Para seguir conectado à Unistore, faça login com seus dados.",
-    btn: "Sing In"
+    btn: "Sign In"
   });
   const [form, setForm] = useState({
     h1: "Bem-vindo",
@@ -24,7 +24,7 @@ const Login = () => {
       setInfo((prevInfo) => ({
         h1: prevInfo.h1 === "Bem-vindo!" ? "Olá!" : "Bem-vindo!",
         p: prevInfo.p === "Para seguir conectado à Unistore, faça login com seus dados." ? "Crie sua conta na Unistore para acessar os nossos serviços." : "Para seguir conectado à Unistore, faça login com seus dados.",
-        btn: prevInfo.btn === "Sing In" ? "Sign Up" : "Sing In"
+        btn: prevInfo.btn === "Sign In" ? "Sign Up" : "Sign In"
       }));
       setForm((prevForm) => ({
         h1: prevForm.h1 === "Bem-vindo" ? "Bem-vindo " : "Bem-vindo",
