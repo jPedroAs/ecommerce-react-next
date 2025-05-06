@@ -3,8 +3,8 @@ import Cookies from "js-cookie";
 
 const api = axios.create({
     // baseURL:"https://eiif5bjnih.execute-api.us-east-1.amazonaws.com",
-    // baseURL:"https://santapiapi.onrender.com",
-    baseURL:"http://localhost:5189",
+    baseURL:"https://santapiapi.onrender.com",
+    // baseURL:"http://localhost:5189",
     headers: {
         'Content-Type': 'application/json',
     }
