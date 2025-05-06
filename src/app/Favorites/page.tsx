@@ -114,57 +114,58 @@ const Fav = () => {
     }
 
     return (
-        <main className="min-h-screen bg-gray-100">
-            <MainBar />
-            <div className="p-4 max-w-4xl mx-auto">
-                {loading ? (
-                    <h1 className="text-center text-xl font-semibold">Carregando favoritos...</h1>
-                ) : (
-                    <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
-                        {products.length === 0 ? (
-                            <p className="text-center text-gray-500">Você ainda não tem produtos favoritados.</p>
-                        ) : (
-                            products.map((product) => (
-                                <div key={product.id} className="border-b pb-4 last:border-b-0">
-                                    <h3 className="text-lg font-bold">{product.nome}</h3>
-                                    <img
-                                        className="w-32 h-32 object-cover rounded-md mb-4"
-                                        src={
-                                            product?.img &&
-                                                typeof product.img === "string" &&
-                                                product.img.startsWith("data:image")
-                                                ? product.img
-                                                : `data:image/png;base64,${product?.img || ""}`
-                                        }
-                                        alt={product?.nome || "Produto sem nome"}
-                                    />
-                                    <p className="text-gray-600">{product.descricao}</p>
-                                    <div className="flex items-center justify-between mt-2">
-                                        <span className="text-green-600 font-semibold">R$ {product.preco}</span>
-                                        <div className="flex gap-2">
-                                            <button
-                                                onClick={() => PostPedido(product)}
-                                                className="bg-blue-100 hover:bg-blue-200 text-blue-600 px-3 py-1 rounded-md text-sm"
-                                            >
-                                                Adicionar ao carrinho
-                                            </button>
-                                            <button
-                                                onClick={() => removeFavorite(String(product.id))}
-                                                className="flex items-center gap-1 bg-red-100 hover:bg-red-200 text-red-600 px-3 py-1 rounded-md text-sm"
-                                            >
-                                                <AiFillStar className="text-red-500" /> Remover
-                                            </button>
+        <div className="bg-gray-100">
+            <main className="min-h-screen bg-gray-100">
+                <MainBar />
+                <div className="p-4 max-w-4xl mx-auto">
+                    {loading ? (
+                        <h1 className="text-center text-xl font-semibold">Carregando favoritos...</h1>
+                    ) : (
+                        <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
+                            {products.length === 0 ? (
+                                <p className="text-center text-gray-500">Você ainda não tem produtos favoritados.</p>
+                            ) : (
+                                products.map((product) => (
+                                    <div key={product.id} className="border-b pb-4 last:border-b-0">
+                                        <h3 className="text-lg font-bold">{product.nome}</h3>
+                                        <img
+                                            className="w-32 h-32 object-cover rounded-md mb-4"
+                                            src={
+                                                product?.img &&
+                                                    typeof product.img === "string" &&
+                                                    product.img.startsWith("data:image")
+                                                    ? product.img
+                                                    : `data:image/png;base64,${product?.img || ""}`
+                                            }
+                                            alt={product?.nome || "Produto sem nome"}
+                                        />
+                                        <p className="text-gray-600">{product.descricao}</p>
+                                        <div className="flex items-center justify-between mt-2">
+                                            <span className="text-green-600 font-semibold">R$ {product.preco}</span>
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => PostPedido(product)}
+                                                    className="bg-blue-100 hover:bg-blue-200 text-blue-600 px-3 py-1 rounded-md text-sm"
+                                                >
+                                                    Adicionar ao carrinho
+                                                </button>
+                                                <button
+                                                    onClick={() => removeFavorite(String(product.id))}
+                                                    className="flex items-center gap-1 bg-red-100 hover:bg-red-200 text-red-600 px-3 py-1 rounded-md text-sm"
+                                                >
+                                                    <AiFillStar className="text-red-500" /> Remover
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                )}
-            </div>
+                                ))
+                            )}
+                        </div>
+                    )}
+                </div>
+            </main>
             <Footer />
-
-        </main>
+        </div>
     );
 };
 

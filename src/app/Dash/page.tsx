@@ -23,6 +23,7 @@ import {
     Cell,
     Legend
 } from 'recharts';
+import Footer from '@/components/Footer/Footer';
 
 
 
@@ -76,12 +77,12 @@ function Dashboard() {
     const exportarExcel = async () => {
         const curso = useAuthStore.getState().user?.Curso;
         const universidade = useAuthStore.getState().user?.Universidade;
-    
+
         let data: any = { curso, universidade };
         if (startDate && endDate) {
             data = { ...data, data_init: startDate, data_end: endDate };
         }
-    
+
         try {
             const response = await api.post("/Excel", data, {
                 responseType: 'blob',
@@ -89,14 +90,14 @@ function Dashboard() {
 
             const contentDisposition = response.headers['content-disposition'];
             let fileName = `Relatorio_Vendas_${new Date().toISOString()}.xlsx`;
-    
+
             if (contentDisposition) {
                 const match = contentDisposition.match(/filename="?([^"]+)"?/);
                 if (match?.[1]) {
                     fileName = decodeURIComponent(match[1]);
                 }
             }
-    
+
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
@@ -108,7 +109,7 @@ function Dashboard() {
             console.error("Erro ao exportar o Excel", err);
         }
     };
-    
+
 
 
     useEffect(() => {
@@ -146,7 +147,7 @@ function Dashboard() {
     const produtoMaisVendido = dash?.produtoMaisVendido[0]?.nomeProduto ?? "Nenhum";
 
     return (
-        <div>
+        <div className='bg-white'>
             <MainBar />
             {loading ? (
                 <div className="bg-white min-h-screen p-6 flex gap-6 mb-6 text-black"><h1>Carregando...</h1></div>
@@ -280,7 +281,9 @@ function Dashboard() {
                         </ResponsiveContainer>
                     </div>
                 </main>
+
             )}
+            <Footer />
         </div>
     );
 }
