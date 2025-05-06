@@ -6,6 +6,7 @@ import { Product } from "@/Types/Interface";
 import { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
+import Footer from '@/components/Footer/Footer';
 
 const Fav = () => {
     const [loading, setLoading] = useState(false);
@@ -161,6 +162,8 @@ const Fav = () => {
                     </div>
                 )}
             </div>
+            <Footer />
+
         </main>
     );
 };

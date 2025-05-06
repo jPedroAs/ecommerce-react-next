@@ -6,6 +6,7 @@ import api from "@/services/api";
 import { useAuthStore } from "@/store/authStore";
 import { Product } from "@/Types/Interface";
 import MainBar from "@/components/MainBar/page";
+import Footer from '@/components/Footer/Footer';
 
 type RatingData = {
   id: number;
@@ -174,6 +175,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

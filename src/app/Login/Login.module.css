@@ -3,4 +3,5 @@
     width: 100vw;
     display: flex;
     background: #FFF;
+    overflow: hidden; /* Evita scroll vertical */
 }

@@ -3,6 +3,7 @@
     width: 100vw;
     overflow-x: hidden;
     background: #FFF;
+    padding-bottom: 30%;
   }
   .casing{
     height: 140px;
@@ -19,6 +20,7 @@
     align-items: flex-start;
     padding-left: 108.8px;
     gap: 20px;
+   
   }
   .none{
     width: 100%;
@@ -46,6 +48,7 @@
   .content img{
     width: 304px;
     height: 256.92px;
+    object-fit: contain;
   }
   .content div{
     width: 304px;

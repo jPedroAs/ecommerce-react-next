@@ -17,6 +17,7 @@ import { LuDollarSign } from "react-icons/lu";
 import { GoFileDirectory } from "react-icons/go";
 import { MdOutlineDescription } from "react-icons/md";
 import { useAuthStore } from "@/store/authStore";
+import Footer from '@/components/Footer/Footer';
 
 
 const Products = () => {
@@ -186,9 +187,11 @@ const Products = () => {
     }
 
     return (
-        <>
+        <>            
+
             <div className={styles.main}>
                 <MainBar />
+                
                 <div className={styles.container}>
 
                     <form className={styles.cadprod}>
@@ -276,7 +279,9 @@ const Products = () => {
                     {exibirComponenteInfo && selectedProduct && <InfoPopup nome={selectedProduct.nome} id={selectedProduct.id} preco={selectedProduct.preco} img={selectedProduct.img} descricao={selectedProduct.descricao} quantidade={quantidade} onClose={handleCloseInfoPopup} />}
                 </div>
             </div>
+
             <ModalProducts isOpen={modalOpen} onClosed={handlerModal} data={selectedProduct ? [selectedProduct] : []} />
+            <Footer />
         </>
     );
 };
