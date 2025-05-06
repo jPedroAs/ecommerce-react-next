@@ -11,6 +11,7 @@ const Banner = () => {
         alt="Banner promocional" 
         className={styles.bannerImage} 
       />
+
     </div>
   );
 };
