@@ -245,8 +245,7 @@ function Dashboard() {
                     </div>
 
                     <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
-                        <p className="text-black text-[20px]">Curso que mais vendeu</p>
-
+                        <p className="text-black text-[20px]">Vendas de Cada Curso</p>
                         <ResponsiveContainer width="100%" height={300}>
                             <PieChart>
                                 <Pie
