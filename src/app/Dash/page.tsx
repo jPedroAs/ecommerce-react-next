@@ -24,7 +24,6 @@ import {
     Cell,
     Legend
 } from 'recharts';
-import Footer from '@/components/Footer/Footer';
 
 
 
