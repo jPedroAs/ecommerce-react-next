@@ -12,6 +12,8 @@ import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { useProdutoStore } from "@/store/produtoStore";
 import Footer from '@/components/Footer/Footer';
+import Banner from "@/components/Banner/Banner";
+import { FiCodesandbox } from "react-icons/fi";
 
 const Catalog = () => {
   const router = useRouter(); // Inicialize o roteador usando o hook
@@ -167,9 +169,31 @@ const Catalog = () => {
             </>
           )}
         </div>
-      
+  
       </main>
-      <Footer />
+      {!loading && products.length > 0 && (
+  <>
+    <Banner />
+  <section className={styles.sobreNos}>
+    <div className={styles.sobreContainer}>
+      <div className={styles.Sobre}><div><FiCodesandbox className={styles.i} /></div>
+      <h2>Sobre Nós</h2>
+    </div>
+       
+      
+      <p>
+      Nosso objetivo é facilitar a venda de produtos entre universitários. Criamos uma plataforma onde estudantes podem anunciar e encontrar materiais, serviços e itens com mais facilidade, segurança e praticidade — de aluno para aluno,
+      </p>
+        
+      <p>
+      Além de conectar quem precisa com quem oferece, promovemos o empreendedorismo estudantil, incentivando a troca justa e consciente dentro do ambiente universitário.
+      Acreditamos no poder da colaboração entre estudantes e queremos tornar cada negociação uma experiência acessível, confiável e feita sob medida para a realidade acadêmica.
+      </p>
+  </div>
+</section>
+    <Footer />
+  </>
+)}
     </>
   );
 };
