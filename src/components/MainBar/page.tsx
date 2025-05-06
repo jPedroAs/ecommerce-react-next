@@ -10,6 +10,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { MdLogout } from "react-icons/md";
 import { AiFillStar } from "react-icons/ai";
 
+
 const MainBar = () => {
 
     const [navHeight, setNavHeight] = useState("80px");
@@ -47,8 +48,9 @@ const MainBar = () => {
                     <ul>
                         <li><Link href="/Catalog" className={styles.a}>Home</Link></li>
                         { useRole == "admin" ? <li><Link href="/Products" className={styles.a}>Products</Link></li> : null}
+                        {/* <li><Link href="/Categories" className={styles.a}>Categories</Link></li> */}
                         <li><Link href="/Avaliacao" className={styles.a}>Review</Link></li>
-                        <li><Link href="/Historico-Pedido" className={styles.a}>H-Pedidos</Link></li>
+                        { useRole == "admin" ?  <li><Link href="/Dash" className={styles.a}>Dashboard</Link></li> : null}
                     </ul>
                 </nav>
                 <nav className={styles.icons}>

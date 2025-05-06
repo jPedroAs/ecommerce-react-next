@@ -63,6 +63,8 @@ const Catalog = () => {
   async function PostPedido(produto: Product) {
     useAuthStore.getState().loadUserFromCookies();
     const id_user = useAuthStore.getState().user?.ID;
+    const curso = useAuthStore.getState().user?.Curso;
+    const universidade = useAuthStore.getState().user?.Universidade;
 
     const data = {
       id_produto: produto.id,
@@ -70,7 +72,9 @@ const Catalog = () => {
       qbt_prod_unidade: 1,
       status_pedido: 1,
       id_category: 1,
-      id_aluno: id_user
+      id_aluno: id_user,
+      curso: curso,
+      universidade: universidade
     };
 
     try {
