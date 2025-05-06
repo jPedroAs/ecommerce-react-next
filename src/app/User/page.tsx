@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Users } from "../../Types/UserInterface"
 import MainBar from "@/components/MainBar/page";
 import { useAuthStore } from "@/store/authStore";
+import Link from "next/link";
 
 
 
@@ -104,8 +105,16 @@ function User() {
     return (
         <div className="block bg-white min-h-screen">
             <MainBar />
+            <div className="p-4 flex justify-end mr-10">
+                <Link href="/Historico-Pedido">
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-gray-300">
+                        Histórico de Pedido
+                    </button>
+                </Link>
+            </div>
             <div className="max-w-4xl mx-auto flex flex-col items-center mt-6">
-                <h2 className="text-2xl font-bold text-center text-gray-700">Tela do Usuário</h2>
+
+                <h2 className="text-2xl font-bold text-center text-gray-700 mt-8">Tela do Usuário</h2>
                 {user.map((user) => (
                     <form onSubmit={PutUser} key={user.id} className="bg-white p-10 rounded-lg shadow-lg w-full max-w-lg flex flex-col gap-4">
                         <input
