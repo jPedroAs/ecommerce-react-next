@@ -12,6 +12,7 @@ import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { useProdutoStore } from "@/store/produtoStore";
 import Footer from '@/components/Footer/Footer';
+import Banner from "@/components/Banner/Banner";
 
 const Catalog = () => {
   const router = useRouter(); // Inicialize o roteador usando o hook
@@ -167,9 +168,14 @@ const Catalog = () => {
             </>
           )}
         </div>
-      
+  
       </main>
-      <Footer />
+      {!loading && products.length > 0 && (
+  <>
+    <Banner />
+    <Footer />
+  </>
+)}
     </>
   );
 };

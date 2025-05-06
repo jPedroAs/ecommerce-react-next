@@ -1,0 +1,14 @@
+.banner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    background-color: transparent;
+    overflow: hidden; 
+  }
+  
+  .bannerImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* opcional */
+  }

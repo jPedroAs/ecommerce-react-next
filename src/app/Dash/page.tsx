@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import { ptBR } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
+import Footer from '@/components/Footer/Footer';
 
 import {
     BarChart,
@@ -281,6 +282,7 @@ function Dashboard() {
                     </div>
                 </main>
             )}
+            <Footer />
         </div>
     );
 }
