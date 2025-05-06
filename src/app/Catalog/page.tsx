@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Swal from "sweetalert2";
 import { useProdutoStore } from "@/store/produtoStore";
+import Footer from '@/components/Footer/Footer';
 
 const Catalog = () => {
   const router = useRouter(); // Inicialize o roteador usando o hook
@@ -124,7 +125,7 @@ const Catalog = () => {
           <SearchBox query={query} setQuery={setQuery} />
         </div>
 
-        <div className={styles.container}>
+        <div className={styles.container} >
           {loading ? (
             <div className={styles.none}><h1>Procurando...</h1></div>
           ) : (
@@ -162,7 +163,9 @@ const Catalog = () => {
             </>
           )}
         </div>
+      
       </main>
+      <Footer />
     </>
   );
 };

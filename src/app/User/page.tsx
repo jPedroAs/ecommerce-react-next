@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Users } from "../../Types/UserInterface"
 import MainBar from "@/components/MainBar/page";
 import { useAuthStore } from "@/store/authStore";
+import Footer from '@/components/Footer/Footer';
 
 
 
@@ -207,6 +208,7 @@ function User() {
                     </form>
                 ))}
             </div>
+            <Footer />
         </div>
 
     );

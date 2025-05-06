@@ -4,6 +4,7 @@
     background: #FFFFFF;
     color: #FFFFFF;
     z-index: 0;
+    padding-bottom: 55%;
 }
 .container{
     position: relative;
@@ -89,7 +90,7 @@
 .containermyproducts{
     position: relative;
     right: 100px;
-    width: 1130px;
+    width:50%;
     height: 586px;
     background: #FFFFFF;
     border-radius: 24px;    
@@ -105,7 +106,7 @@
     color: #123D72;
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
-    border-bottom: 3px solid     #123D72;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .myproducts{
     width: 100%;

@@ -5,6 +5,7 @@ import api from "@/services/api";
 import { Pedidos } from '@/Types/PedidoInterface';
 import MainBar from '@/components/MainBar/page';
 import { useAuthStore } from '@/store/authStore';
+import Footer from '@/components/Footer/Footer';
 
 const HistoricoCompras = () => {
     const [pedidos, setPedidos] = useState<Pedidos[]>([]);
@@ -66,6 +67,8 @@ const HistoricoCompras = () => {
                     </div>
                 )}
             </div>
+            <Footer />
+
         </div>
     );
 };
