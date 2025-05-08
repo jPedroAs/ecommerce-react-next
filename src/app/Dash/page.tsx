@@ -127,7 +127,7 @@ function Dashboard() {
     const produtosVendidos = dash?.produtoMaisVendido.map(item => ({
         name: item.nomeProduto,
         quantidade: item.quantidade
-    }));
+    })) || [];
 
     const faturamentoMeses = dash?.faturamentoUltimosMeses.map(item => ({
         name: item.mes,
@@ -215,7 +215,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
                         <div className="p-6 shadow rounded-xl bg-gray-100">
                             <p className="text-black text-[20px]">Total de Vendas Mensais</p>
                             <p className="text-3xl font-bold text-black">{vendasMes}</p>
@@ -225,27 +225,36 @@ function Dashboard() {
                                     <XAxis dataKey="name" tick={{ fill: 'black' }} />
                                     <YAxis />
                                     <Tooltip />
-                                    <Line type="monotone" dataKey="vendas" stroke="#f5431b" strokeWidth={5} />
+                                    <Line type="monotone" dataKey="vendas" stroke="#f5431b" strokeWidth={4} />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
 
-                        <div className="p-6 shadow rounded-xl bg-gray-100">
-                            <p className="text-black text-[20px] mb-6">Produto Mais Vendido no Mês</p>
-                            <p className="text-3xl font-bold text-black mb-10">{produtoMaisVendido}</p>
-                            <ResponsiveContainer width="100%" height={100}>
-                                <BarChart data={produtosVendidos}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" tick={{ fill: 'black' }} />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Bar dataKey="quantidade" fill="#268149" />
-                                </BarChart>
-                            </ResponsiveContainer>
+                        <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
+                            <p className="text-black text-[20px]">Os 4 Produto Mais Vendido no Mês</p>
+                            <p className="text-3xl font-bold text-black mb-5">{produtoMaisVendido}</p>
+                            <ResponsiveContainer width="100%" height={500}>
+                            <PieChart>
+                                <Pie
+                                    data={produtosVendidos}
+                                    dataKey="quantidade"
+                                    nameKey="name"
+                                    innerRadius="60%"
+                                    outerRadius="90%"
+                                    fill="#8884d8"
+                                    label
+                                >
+                                    {produtosVendidos.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
                         </div>
                     </div>
 
-                    <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
+                    {/* <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
                         <p className="text-black text-[20px]">Vendas de Cada Curso</p>
                         <ResponsiveContainer width="100%" height={300}>
                             <PieChart>
@@ -266,19 +275,20 @@ function Dashboard() {
                             </PieChart>
                         </ResponsiveContainer>
 
-                    </div>
+                    </div> */}
 
                     <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
                         <p className="text-black text-[20px]">Faturamento</p>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <BarChart data={faturamentoMeses}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" tick={{ fill: 'black' }} />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="faturamento" fill="#138deb" />
-                            </BarChart>
-                        </ResponsiveContainer>
+              
+                            <ResponsiveContainer width="100%" height={200}>
+                                <LineChart data={faturamentoMeses}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" tick={{ fill: 'black' }} />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Line type="monotone" dataKey="faturamento" stroke="#f5431b" strokeWidth={4} />
+                                </LineChart>
+                            </ResponsiveContainer>
                     </div>
                 </main>
 

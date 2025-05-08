@@ -7,6 +7,7 @@ import { GoFileDirectory } from "react-icons/go";
 import { MdOutlineDescription } from "react-icons/md";
 import api from "@/services/api";
 import Swal from "sweetalert2";
+import { useAuthStore } from "@/store/authStore";
 
 interface PopupProps extends Product { }
 
@@ -19,6 +20,9 @@ const Popup = (props: PopupProps) => {
 
     async function PutProduto(id: string) {
         try {
+            useAuthStore.getState().loadUserFromCookies();
+            const curso = useAuthStore.getState().user?.Curso;
+            const universidade = useAuthStore.getState().user?.Universidade;
             const file = imageRef.current?.files?.[0];
             let base64Image = "";
 
@@ -35,8 +39,9 @@ const Popup = (props: PopupProps) => {
                 Descricao: descRef.current?.value,
                 Preco: ValorRef.current?.value,
                 IMG: base64Image || props.img,
-                Categoria: "ADS",
-                Curso: "ads",
+                Categoria: "outros",
+                Curso: curso,
+                Universidade: universidade,
                 Aval: 0,
                 QAval: 0
             };
@@ -67,19 +72,19 @@ const Popup = (props: PopupProps) => {
             <form className={styles.form}>
                 <div className={styles.items}>
                     <SiNamecheap className={styles.img} />
-                    <input type="text" placeholder="Nome" className={styles.input} ref={NomeRef} defaultValue={props.nome}/>
+                    <input type="text" placeholder="Nome" className={styles.input} ref={NomeRef} defaultValue={props.nome} />
                 </div>
                 <div className={styles.items}>
                     <LuDollarSign className={styles.img} />
-                    <input type="number" placeholder="Valor" className={styles.input} ref={ValorRef} defaultValue={props.preco}/>
+                    <input type="number" placeholder="Valor" className={styles.input} ref={ValorRef} defaultValue={props.preco} />
                 </div>
                 <div className={styles.items}>
                     <GoFileDirectory className={styles.img} />
-                    <input type="file" accept="image/*" className={styles.input} ref={imageRef}/>
+                    <input type="file" accept="image/*" className={styles.input} ref={imageRef} />
                 </div>
                 <div className={styles.items}>
                     <MdOutlineDescription className={styles.img} />
-                    <input type="text" placeholder="Descrição" className={styles.input} ref={descRef} defaultValue={props.descricao}/>
+                    <input type="text" placeholder="Descrição" className={styles.input} ref={descRef} defaultValue={props.descricao} />
                 </div>
             </form>
 
