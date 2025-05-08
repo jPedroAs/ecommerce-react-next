@@ -147,93 +147,98 @@ function Dashboard() {
     const produtoMaisVendido = dash?.produtoMaisVendido[0]?.nomeProduto ?? "Nenhum";
 
     return (
-        <div className='bg-white'>
+        <div className="bg-white">
             <MainBar />
             {loading ? (
-                <div className="bg-white min-h-screen p-6 flex gap-6 mb-6 text-black"><h1>Carregando...</h1></div>
+                <div className="bg-white min-h-screen p-4 md:p-6 flex gap-6 mb-6 text-black">
+                    <h1>Carregando...</h1>
+                </div>
             ) : (
-                <main className="bg-white min-h-screen p-6">
-                    <h1 className="text-2xl font-bold mb-6 text-black">Dashboard</h1>
+                <main className="bg-white min-h-screen p-4 md:p-6">
+                    <h1 className="text-xl md:text-2xl font-bold mb-6 text-black">Dashboard</h1>
 
-                    <div className="flex gap-6 mb-6">
-                        <div className="relative w-fit">
+                    {/* Filtros */}
+                    <div className="flex flex-col gap-4 md:flex-row md:gap-6 mb-6">
+                        <div className="relative w-full md:w-fit">
                             <label className="text-sm block mb-1 text-black">Início</label>
                             <DatePicker
                                 selected={startDate ?? null}
                                 onChange={(date) => setStartDate(date)}
                                 locale={ptBR}
                                 dateFormat="dd/MM/yyyy"
-                                className="border rounded px-2 py-1 bg-gray-100 text-black pr-10"
+                                className="border rounded px-2 py-1 bg-gray-100 text-black pr-10 w-full md:w-auto"
                                 calendarClassName="bg-black text-white p-2 rounded-lg"
                                 dayClassName={() => "hover:bg-gray-700"}
                                 popperPlacement="bottom"
                                 placeholderText="dd/mm/yyyy"
                             />
-                            {/* <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-black pointer-events-none" /> */}
                         </div>
 
-                        <div className="relative w-fit">
-                            <label className="text-sm block mb-1 text-black">Início</label>
+                        <div className="relative w-full md:w-fit">
+                            <label className="text-sm block mb-1 text-black">Fim</label>
                             <DatePicker
                                 selected={endDate ?? null}
                                 onChange={(date) => setEndDate(date)}
                                 locale={ptBR}
                                 dateFormat="dd/MM/yyyy"
-                                className="border rounded px-2 py-1 bg-gray-100 text-black pr-10"
+                                className="border rounded px-2 py-1 bg-gray-100 text-black pr-10 w-full md:w-auto"
                                 calendarClassName="bg-black text-white p-2 rounded-lg"
                                 dayClassName={() => "hover:bg-gray-700"}
                                 popperPlacement="bottom"
                                 placeholderText="dd/mm/yyyy"
                             />
-                            {/* <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-black pointer-events-none" /> */}
-                        </div>
-                        <button
-                            onClick={getDash}
-                            disabled={!startDate || !endDate}
-                            className={`mt-6 px-4 py-2 rounded text-white ${!startDate || !endDate ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600'}`}
-                        >
-                            Filtrar
-                        </button>
-                        <button
-                            onClick={exportarExcel}
-                            className="mt-6 px-4 py-2 rounded text-white bg-green-600"
-                        >
-                            Exportar Excel
-                        </button>
-
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
-                        <div className="p-6 shadow rounded-xl bg-gray-100">
-                            <p className="text-black text-[20px]">Total de Produtos Registrados</p>
-                            <p className="text-3xl font-bold text-black">{totalProdutos}</p>
                         </div>
 
-                        <div className="p-6 shadow rounded-xl bg-gray-100">
-                            <p className="text-black text-[20px]">Usuários Ativos</p>
-                            <p className="text-3xl font-bold text-black">{usuariosAtivos}</p>
+                        <div className="flex gap-2 md:gap-4 mt-2 md:mt-6">
+                            <button
+                                onClick={getDash}
+                                disabled={!startDate || !endDate}
+                                className={`px-4 py-2 rounded text-white ${!startDate || !endDate ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600'}`}
+                            >
+                                Filtrar
+                            </button>
+                            <button
+                                onClick={exportarExcel}
+                                className="px-4 py-2 rounded text-white bg-green-600"
+                            >
+                                Exportar Excel
+                            </button>
                         </div>
                     </div>
 
-                    <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
+                    {/* Cards principais */}
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 mb-6">
                         <div className="p-6 shadow rounded-xl bg-gray-100">
-                            <p className="text-black text-[20px]">Total de Vendas Mensais</p>
-                            <p className="text-3xl font-bold text-black">{vendasMes}</p>
-                            <ResponsiveContainer width="100%" height={200}>
-                                <LineChart data={salesData}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" tick={{ fill: 'black' }} />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Line type="monotone" dataKey="vendas" stroke="#f5431b" strokeWidth={4} />
-                                </LineChart>
-                            </ResponsiveContainer>
+                            <p className="text-black text-lg md:text-xl">Total de Produtos Registrados</p>
+                            <p className="text-2xl md:text-3xl font-bold text-black">{totalProdutos}</p>
                         </div>
 
-                        <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
-                            <p className="text-black text-[20px]">Os 4 Produto Mais Vendido no Mês</p>
-                            <p className="text-3xl font-bold text-black mb-5">{produtoMaisVendido}</p>
-                            <ResponsiveContainer width="100%" height={500}>
+                        <div className="p-6 shadow rounded-xl bg-gray-100">
+                            <p className="text-black text-lg md:text-xl">Usuários Ativos</p>
+                            <p className="text-2xl md:text-3xl font-bold text-black">{usuariosAtivos}</p>
+                        </div>
+                    </div>
+
+                    {/* Gráfico de vendas mensais */}
+                    <div className="p-4 md:p-6 shadow rounded-xl bg-gray-100 mt-5">
+                        <p className="text-black text-lg md:text-xl">Total de Vendas Mensais</p>
+                        <p className="text-2xl md:text-3xl font-bold text-black">{vendasMes}</p>
+                        <ResponsiveContainer width="100%" height={200}>
+                            <LineChart data={salesData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" tick={{ fill: 'black' }} />
+                                <YAxis />
+                                <Tooltip />
+                                <Line type="monotone" dataKey="vendas" stroke="#f5431b" strokeWidth={4} />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+
+                    {/* Gráfico de produtos mais vendidos */}
+                    <div className="p-4 md:p-6 shadow rounded-xl bg-gray-100 mt-5">
+                        <p className="text-black text-lg md:text-xl">Os 4 Produtos Mais Vendidos no Mês</p>
+                        <p className="text-2xl md:text-3xl font-bold text-black mb-5">{produtoMaisVendido}</p>
+                        <ResponsiveContainer width="100%" height={500}>
                             <PieChart>
                                 <Pie
                                     data={produtosVendidos}
@@ -251,51 +256,50 @@ function Dashboard() {
                                 <Legend />
                             </PieChart>
                         </ResponsiveContainer>
-                        </div>
                     </div>
 
-                    {/* <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
-                        <p className="text-black text-[20px]">Vendas de Cada Curso</p>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <PieChart>
-                                <Pie
-                                    data={faturamentoData}
-                                    dataKey="total"
-                                    nameKey="curso"
-                                    innerRadius="60%"
-                                    outerRadius="90%"
-                                    fill="#8884d8"
-                                    label
-                                >
-                                    {faturamentoData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Pie>
-                                <Legend />
-                            </PieChart>
+                    {/* Gráfico de faturamento */}
+                    <div className="p-4 md:p-6 shadow rounded-xl bg-gray-100 mt-5">
+                        <p className="text-black text-lg md:text-xl">Faturamento</p>
+                        <ResponsiveContainer width="100%" height={200}>
+                            <LineChart data={faturamentoMeses}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" tick={{ fill: 'black' }} />
+                                <YAxis />
+                                <Tooltip />
+                                <Line type="monotone" dataKey="faturamento" stroke="#f5431b" strokeWidth={4} />
+                            </LineChart>
                         </ResponsiveContainer>
-
-                    </div> */}
-
-                    <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
-                        <p className="text-black text-[20px]">Faturamento</p>
-              
-                            <ResponsiveContainer width="100%" height={200}>
-                                <LineChart data={faturamentoMeses}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" tick={{ fill: 'black' }} />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Line type="monotone" dataKey="faturamento" stroke="#f5431b" strokeWidth={4} />
-                                </LineChart>
-                            </ResponsiveContainer>
                     </div>
                 </main>
-
             )}
             <Footer />
         </div>
+
     );
 }
 
 export default Dashboard;
+
+{/* <div className="p-6 shadow rounded-xl bg-gray-100 col-span-2 mt-5">
+        <p className="text-black text-[20px]">Vendas de Cada Curso</p>
+        <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+                <Pie
+                    data={faturamentoData}
+                    dataKey="total"
+                    nameKey="curso"
+                    innerRadius="60%"
+                    outerRadius="90%"
+                    fill="#8884d8"
+                    label
+                >
+                    {faturamentoData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                </Pie>
+                <Legend />
+            </PieChart>
+        </ResponsiveContainer>
+
+    </div> */}
