@@ -157,10 +157,10 @@
       display: none;
     }
     
-    /* .icons {
+    .icons {
         display: none;
         position: absolute;
-        top: calc(80px + 200px);
+        top: calc(92px + 260px);
         left: 0;
         width: 100%;
         justify-content: space-around;
@@ -171,6 +171,6 @@
     .iconsActive {
         display: flex !important;
         max-height: 100px;
-    } */
+    }
   }
   
