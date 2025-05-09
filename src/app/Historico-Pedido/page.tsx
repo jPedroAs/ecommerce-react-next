@@ -22,7 +22,8 @@ const HistoricoCompras = () => {
                 setPedidos(response.data.pedido);
                 setLoading(false)
             } catch (error) {
-                console.error('Erro ao buscar pedidos:', error);
+                setPedidos([]);
+                setLoading(false)
             }
         };
 

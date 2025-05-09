@@ -82,7 +82,7 @@ const Catalog = () => {
     try {
       await api.post("/Pedido", data);
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "success",
         title: "Adicionado no Carrinho",
         showConfirmButton: false,
@@ -90,7 +90,7 @@ const Catalog = () => {
       });
     } catch {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "info",
         title: "Item já foi adicionado no Carrinho",
         showConfirmButton: false,

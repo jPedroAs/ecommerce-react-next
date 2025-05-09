@@ -108,7 +108,7 @@ function User() {
             <MainBar />
             <div className="p-4 flex justify-end mr-10">
                 <Link href="/Historico-Pedido">
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-gray-300">
+                    <button className="bg-[#123D72] text-white px-4 py-2 rounded hover:bg-gray-300">
                         Histórico de Pedido
                     </button>
                 </Link>

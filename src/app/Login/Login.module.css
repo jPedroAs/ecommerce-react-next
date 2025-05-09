@@ -2,5 +2,20 @@
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-wrap: wrap; /* permite quebra de linha em telas pequenas */
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center;     /* centraliza verticalmente */
     background: #FFF;
+    overflow: hidden;
+}
+
+/* Ajuste adicional para telas pequenas */
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column; 
+        height: auto;
+        min-height: 100vh;
+        justify-content: center; /* mantém centralização horizontal */
+        align-items: center;     /* mantém centralização vertical */
+    }
 }

@@ -18,6 +18,7 @@ import { GoFileDirectory } from "react-icons/go";
 import { MdOutlineDescription } from "react-icons/md";
 import { useAuthStore } from "@/store/authStore";
 import Footer from '@/components/Footer/Footer';
+import Link from "next/link";
 
 
 const Products = () => {
@@ -55,7 +56,7 @@ const Products = () => {
             useAuthStore.getState().loadUserFromCookies();
             const curso = useAuthStore.getState().user?.Curso;
             const universidade = useAuthStore.getState().user?.Universidade;
-            
+
             const response = await api.get(`/Produto/Curso/${curso}/${universidade}`);
             const data = await response.data;
             console.log(data)
@@ -187,11 +188,18 @@ const Products = () => {
     }
 
     return (
-        <>            
+        <>
 
             <div className={styles.main}>
                 <MainBar />
-                
+                <div className="p-4 flex justify-end mr-10">
+                    <Link href="/historico">
+                        <button className="bg-[#123D72] text-white px-4 py-2 rounded hover:bg-gray-300 mr-4">Histórico de Estoque</button>
+                    </Link>
+                    <Link href="/Confirmar-Retirada">
+                        <button className="bg-[#123D72] text-white px-4 py-2 rounded hover:bg-gray-300">Retirada de Pedidos</button>
+                    </Link>
+                </div>
                 <div className={styles.container}>
 
                     <form className={styles.cadprod}>

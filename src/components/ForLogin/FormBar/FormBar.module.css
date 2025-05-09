@@ -1,16 +1,20 @@
-.container{
+.container {
     width: 54.22vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;  /* centraliza horizontalmente */
+    align-items: center;      /* centraliza verticalmente */
     transition: transform 0.6s ease-in-out;
     background: none;
     z-index: 0;
+    box-sizing: border-box;  /* evita que padding quebre layout */
+    padding: 20px;            /* adiciona respiro para conteúdo */
 }
+
 .content{
+    max-width: 100%;
     width: 516px;
-    height: 695px;
+    max-height: 94vh; /* evita estouro vertical em telas pequenas */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -139,4 +143,71 @@
     font-weight: lighter;
     text-decoration: underline;
     color: #123D72;
+}
+
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .container {
+        min-height: 100vh;      /* garante altura mínima */
+        justify-content: center; /* reforça centralização vertical */
+        align-items: center;     /* centraliza horizontalmente */
+    }
+
+    .move {
+        transform: translateX(0); /* neutraliza o movimento */
+        border-radius: 0;
+    }
+
+    .content {
+        align-items: center;
+    }
+
+    .content h1 {
+        font-size: 38px;
+    }
+
+    .options {
+        width: 100%;
+        height: auto;
+        font-size: 24px;
+    }
+
+    .options div {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+
+    .form {
+        width: 100%;
+    }
+
+    .form div {
+        flex-direction: row;
+        height: 56px;
+    }
+
+    .form div div {
+        width: 80px;
+        font-size: 30px;
+    }
+
+    .form div input,
+    .form div select {
+        width: calc(100% - 80px);
+        font-size: 18px;
+    }
+
+    .form button {
+        width: 100%;
+        font-size: 18px;
+        height: 56px;
+    }
+
+    .content a {
+        width: 100%;
+        font-size: 20px;
+        height: auto;
+    }
 }
